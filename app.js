@@ -766,8 +766,7 @@ function navegarA(target) {
     'experto': 'sistema-experto',
     'difuso': 'sistema-difuso',
     'herramientas': 'auditoria',
-    'auditoria': 'auditoria',
-    'teoria': 'teoria'
+    'auditoria': 'auditoria'
   };
 
   const id = map[target] || target;
@@ -891,7 +890,7 @@ function actualizarInformeAuditoria(res, expRes, rGasto, icvs, td) {
     `  2. Carencias Vivienda/Servicios(ICVS): ${icvs.toFixed(1)} / 9 puntos`,
     `  3. Tasa de Dependencia Familiar (TD) : ${td.toFixed(2)} dep/activo`,
     "--------------------------------------------------------------------",
-    "PARADIGMA 1: SISTEMA EXPERTO BASADO EN REGLAS (CLIPS / LÓGICA BOOLEANA)",
+    "PARADIGMA 1: MOTOR DEL SISTEMA EXPERTO (REGLAS DE PRODUCCIÓN DETERMINISTAS)",
     `  DICTAMEN OFICIAL CSE                 : ${expRes ? expRes.dictamen : 'Pobreza Extrema'}`,
     `  TRAMO MONETARIO (Capa 1)             : ${expRes ? expRes.tramoLabel : 'Bajo LPE'}`,
     `  PUNTAJE PRIVACIONES (Capa 2)         : ${expRes ? expRes.privScore : 8} pts (Vuln: ${expRes ? expRes.vulAtr.toUpperCase() : 'ALTA'})`,

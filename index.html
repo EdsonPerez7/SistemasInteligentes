@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sistemas Inteligentes: Observatorio Socioeconómico ODS 1. Comparativa dual entre Sistemas Expertos (CLIPS) y Lógica Difusa Mamdani con microdatos ENAHO / SISFOH.">
+  <meta name="description" content="Sistemas Inteligentes: Observatorio Socioeconómico ODS 1. Comparativa dual entre Sistemas Expertos y Lógica Difusa Mamdani con microdatos ENAHO / SISFOH.">
   <title>Sistemas Inteligentes: Observatorio Socioeconómico ODS 1</title>
   
   <!-- Google Fonts -->
@@ -33,14 +33,13 @@
         </div>
       </a>
 
-      <!-- Menú de Enlaces a Secciones -->
+      <!-- Menú de Enlaces a Secciones (Desacoplado y sin quiebres de línea) -->
       <div class="navbar-menu" id="navbar-menu">
         <a href="#hero" class="nav-link active" data-target="hero">Inicio</a>
-        <a href="#comparativa" class="nav-link" data-target="comparativa">Comparativa Dual</a>
-        <a href="#sistema-difuso" class="nav-link" data-target="sistema-difuso">Sistema Difuso</a>
-        <a href="#sistema-experto" class="nav-link" data-target="sistema-experto">Sistema Experto</a>
+        <a href="#comparativa" class="nav-link" data-target="comparativa">Comparativa</a>
+        <a href="#sistema-experto" class="nav-link" data-target="sistema-experto">S. Experto</a>
+        <a href="#sistema-difuso" class="nav-link" data-target="sistema-difuso">S. Difuso</a>
         <a href="#auditoria" class="nav-link" data-target="auditoria">Auditoría</a>
-        <a href="#teoria" class="nav-link" data-target="teoria">Marco Teórico</a>
       </div>
 
       <!-- Acciones de Cabecera -->
@@ -73,19 +72,19 @@
       </h1>
 
       <p class="hero-description">
-        Plataforma interactiva para la focalización y priorización de subsidios sociales. Evaluación multidimensional simultánea contrastando la <strong>Lógica Booleana de Sistemas Expertos (CLIPS &bull; 30 Reglas en 3 Capas)</strong> frente a la <strong>Lógica Continua de Inferencia Difusa (Mamdani &bull; 27 Reglas con Centroide Puro)</strong> sobre microdatos reales de la ENAHO.
+        Plataforma interactiva para la focalización y priorización de subsidios sociales. Evaluación multidimensional simultánea contrastando el <strong>Sistema Experto (30 Reglas de Producción en 3 Capas)</strong> frente a la <strong>Inferencia Difusa Mamdani (27 Reglas con Centroide Puro)</strong> sobre microdatos reales de la ENAHO / SISFOH.
       </p>
 
       <!-- Resumen Cuantitativo Rápido (Stats Bar) -->
       <div class="hero-stats-bar">
         <div class="stat-item">
           <div class="stat-number">30</div>
-          <div class="stat-label">Reglas CLIPS (3 Capas)</div>
+          <div class="stat-label">Reglas S. Experto (3 Capas)</div>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
           <div class="stat-number">27</div>
-          <div class="stat-label">Reglas Mamdani (Centroide)</div>
+          <div class="stat-label">Reglas S. Difuso (Centroide)</div>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
@@ -177,21 +176,21 @@
       
       <div class="section-header-center">
         <span class="section-eyebrow">DIAGNÓSTICO SIMULTÁNEO</span>
-        <h2 class="section-title">Evaluación Comparativa Dual: Sistema Experto vs. Sistema Difuso</h2>
+        <h2 class="section-title">Evaluación Comparativa: Sistema Experto vs. Sistema Difuso</h2>
         <p class="section-lead">
-          Observe cómo el mismo hogar es diagnosticado bajo dos paradigmas de Inteligencia Artificial: clasificación simbólica discreta (CLIPS) versus razonamiento continuo con incertidumbre (Mamdani).
+          Observe cómo el mismo hogar es diagnosticado bajo dos paradigmas de Inteligencia Artificial: clasificación por reglas del Sistema Experto frente a inferencia continua con incertidumbre del Sistema Difuso.
         </p>
       </div>
 
       <!-- Tarjetas Cara a Cara -->
       <div class="dual-eval-grid">
         
-        <!-- Tarjeta 1: Sistema Experto (CLIPS / Lógica Booleana) -->
+        <!-- Tarjeta 1: Sistema Experto (Reglas Deterministas) -->
         <div class="eval-card eval-card-expert">
           <div class="eval-card-header">
-            <div class="eval-badge badge-expert-tag">PARADIGMA 1 &bull; LÓGICA BOOLEANA</div>
-            <h3 class="eval-card-title">Clasificación Simbólica (CLIPS)</h3>
-            <p class="eval-card-sub">Motor de producción determinista con salience jerárquico</p>
+            <div class="eval-badge badge-expert-tag">PARADIGMA 1 &bull; LÓGICA DETERMINISTA</div>
+            <h3 class="eval-card-title">Clasificación por Sistema Experto</h3>
+            <p class="eval-card-sub">Motor del Sistema Experto con salience jerárquico</p>
           </div>
           
           <div class="eval-status-box">
@@ -289,14 +288,106 @@
   </section>
 
   <!-- =========================================================================
-       SECCIÓN 3: SIMULADOR DIFUSO INTERACTIVO MAMDANI
+       SECCIÓN 3: MOTOR DEL SISTEMA EXPERTO (30 REGLAS)
+       ========================================================================= -->
+  <section class="landing-section" id="sistema-experto">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">MOTOR DETERMINISTA OFICIAL</span>
+        <h2 class="section-title">Motor del Sistema Experto (30 Reglas)</h2>
+        <p class="section-lead">
+          Encadenamiento hacia adelante (Forward Chaining) en 3 capas jerárquicas con control de salience. Inspeccione los hechos assertados en la Memoria de Trabajo del hogar evaluado.
+        </p>
+      </div>
+
+      <!-- Memoria de Trabajo en Tiempo Real (Terminal) -->
+      <div class="expert-wm-box">
+        <div class="expert-wm-header">
+          <div class="wm-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span class="wm-title">Memoria de Trabajo Activa del Sistema Experto (Working Memory Facts):</span>
+          </div>
+          <span class="wm-badge">Live Asserted Facts</span>
+        </div>
+        <div class="expert-facts-terminal" id="expert-wm-facts">
+          <!-- Hechos assertados en tiempo real por app.js -->
+        </div>
+      </div>
+
+      <!-- Tres Capas de Razonamiento del Sistema Experto -->
+      <div class="expert-layers-grid">
+        
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa1">
+            <span class="layer-tag">CAPA 1 (Salience 100)</span>
+            <h4>Derivación de Hechos Primarios</h4>
+          </div>
+          <p class="layer-desc">Infiere tramos de gasto monetario (R01-R03), dependencia demográfica (R04-R06) y condición de hacinamiento (R07-R08).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R01-tramo-bajo-lpe</code>: Gasto &lt; LPE &rarr; (hecho tramo bajo-lpe)</div>
+            <div class="exp-rule-item"><code>R02-tramo-entre-lpe-lpt</code>: LPE &le; Gasto &lt; LPT &rarr; (hecho tramo entre)</div>
+            <div class="exp-rule-item"><code>R03-tramo-sobre-lpt</code>: Gasto &ge; LPT &rarr; (hecho tramo sobre)</div>
+            <div class="exp-rule-item"><code>R04-dependencia-alta</code>: Dependientes &gt; Activos &rarr; (hecho dependencia alta)</div>
+            <div class="exp-rule-item"><code>R07-hacinamiento-si</code>: Personas/Cuarto &gt; 3 &rarr; (hecho hacinamiento si)</div>
+          </div>
+        </div>
+
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa2">
+            <span class="layer-tag">CAPA 2 (Salience 50 / 45)</span>
+            <h4>Detección de Privaciones INEI</h4>
+          </div>
+          <p class="layer-desc">Evalúa privaciones directas (R09-R18) y privaciones encadenadas de segundo orden: menores expuestos (R19) y adultos mayores (R20).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R09-habitabilidad-critica</code>: Hacinamiento + Piso tierra &rarr; (peso 3)</div>
+            <div class="exp-rule-item"><code>R12-sin-electricidad</code>: Sin servicio eléctrico &rarr; (peso 3)</div>
+            <div class="exp-rule-item"><code>R15-sin-agua-red</code>: Agua de pozo, río o cisterna &rarr; (peso 1)</div>
+            <div class="exp-rule-item"><code>R16-saneamiento-inadecuado</code>: Letrina o pozo ciego &rarr; (peso 1)</div>
+            <div class="exp-rule-item"><code>R19-menores-expuestos</code>: Menores en riesgo sanitario &rarr; (peso 1)</div>
+          </div>
+        </div>
+
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa3">
+            <span class="layer-tag">CAPA 3 (Salience 40 a 10)</span>
+            <h4>Dictamen CSE y Alertas Sociales</h4>
+          </div>
+          <p class="layer-desc">Calcula puntaje acumulado (R24), emite dictamen CSE monetario (R21-R23) y genera alertas de exclusión o atención (R28-R30).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R21-pobreza-extrema</code>: Bajo LPE &rarr; Dictamen Pobreza Extrema</div>
+            <div class="exp-rule-item"><code>R23-no-pobre</code>: Sobre LPT &rarr; Dictamen No Pobre</div>
+            <div class="exp-rule-item"><code>R28-alerta-atencion</code>: Pobre Extremo + Privación Alta &rarr; Prioritario</div>
+            <div class="exp-rule-item"><code>R30-alerta-revision</code>: No Pobre + Privación Alta &rarr; Posible Exclusión</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de Descarga del Archivo del Sistema Experto -->
+      <div class="expert-source-action">
+        <div class="action-text">
+          <strong>Reglas de Producción del Sistema Experto:</strong>
+          <span>Contiene las 30 reglas formales con defrules, salience, defglobal y definstances.</span>
+        </div>
+        <a href="cse_sistema_experto.clp" download class="btn-clips-download">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar Reglas del S. Experto (.clp)
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 4: MOTOR DEL SISTEMA DIFUSO (27 REGLAS MAMDANI)
        ========================================================================= -->
   <section class="landing-section section-elevated" id="sistema-difuso">
     <div class="section-container">
       
       <div class="section-header-center">
         <span class="section-eyebrow">MOTOR DIFUSO INTERACTIVO</span>
-        <h2 class="section-title">Sistema de Inferencia Difusa Mamdani (27 Reglas)</h2>
+        <h2 class="section-title">Motor del Sistema Difuso (27 Reglas)</h2>
         <p class="section-lead">
           Ajuste los controles deslizantes o utilice las calculadoras integradas para simular cualquier hogar y visualizar en tiempo real las funciones de pertenencia y la curva de desfuzificación por centroide.
         </p>
@@ -572,101 +663,9 @@
   </section>
 
   <!-- =========================================================================
-       SECCIÓN 4: SISTEMA EXPERTO BASADO EN REGLAS (CLIPS)
-       ========================================================================= -->
-  <section class="landing-section" id="sistema-experto">
-    <div class="section-container">
-      
-      <div class="section-header-center">
-        <span class="section-eyebrow">MOTOR SIMBÓLICO OFICIAL</span>
-        <h2 class="section-title">Sistema Experto Basado en Reglas (CLIPS / 30 Reglas)</h2>
-        <p class="section-lead">
-          Encadenamiento hacia adelante (Forward Chaining) en 3 capas jerárquicas con control de salience. Inspeccione los hechos assertados en la Memoria de Trabajo del hogar evaluado.
-        </p>
-      </div>
-
-      <!-- Memoria de Trabajo en Tiempo Real (Terminal) -->
-      <div class="expert-wm-box">
-        <div class="expert-wm-header">
-          <div class="wm-header-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            <span class="wm-title">Memoria de Trabajo Activa (CLIPS Working Memory Facts):</span>
-          </div>
-          <span class="wm-badge">Live Asserted Facts</span>
-        </div>
-        <div class="expert-facts-terminal" id="expert-wm-facts">
-          <!-- Hechos assertados en tiempo real por app.js -->
-        </div>
-      </div>
-
-      <!-- Tres Capas de Razonamiento del CLP -->
-      <div class="expert-layers-grid">
-        
-        <div class="expert-layer-card">
-          <div class="layer-header layer-capa1">
-            <span class="layer-tag">CAPA 1 (Salience 100)</span>
-            <h4>Derivación de Hechos Primarios</h4>
-          </div>
-          <p class="layer-desc">Infiere tramos de gasto monetario (R01-R03), dependencia demográfica (R04-R06) y condición de hacinamiento (R07-R08).</p>
-          <div class="layer-rules-list">
-            <div class="exp-rule-item"><code>R01-tramo-bajo-lpe</code>: Gasto &lt; LPE &rarr; (hecho tramo bajo-lpe)</div>
-            <div class="exp-rule-item"><code>R02-tramo-entre-lpe-lpt</code>: LPE &le; Gasto &lt; LPT &rarr; (hecho tramo entre)</div>
-            <div class="exp-rule-item"><code>R03-tramo-sobre-lpt</code>: Gasto &ge; LPT &rarr; (hecho tramo sobre)</div>
-            <div class="exp-rule-item"><code>R04-dependencia-alta</code>: Dependientes &gt; Activos &rarr; (hecho dependencia alta)</div>
-            <div class="exp-rule-item"><code>R07-hacinamiento-si</code>: Personas/Cuarto &gt; 3 &rarr; (hecho hacinamiento si)</div>
-          </div>
-        </div>
-
-        <div class="expert-layer-card">
-          <div class="layer-header layer-capa2">
-            <span class="layer-tag">CAPA 2 (Salience 50 / 45)</span>
-            <h4>Detección de Privaciones INEI</h4>
-          </div>
-          <p class="layer-desc">Evalúa privaciones directas (R09-R18) y privaciones encadenadas de segundo orden: menores expuestos (R19) y adultos mayores (R20).</p>
-          <div class="layer-rules-list">
-            <div class="exp-rule-item"><code>R09-habitabilidad-critica</code>: Hacinamiento + Piso tierra &rarr; (peso 3)</div>
-            <div class="exp-rule-item"><code>R12-sin-electricidad</code>: Sin servicio eléctrico &rarr; (peso 3)</div>
-            <div class="exp-rule-item"><code>R15-sin-agua-red</code>: Agua de pozo, río o cisterna &rarr; (peso 1)</div>
-            <div class="exp-rule-item"><code>R16-saneamiento-inadecuado</code>: Letrina o pozo ciego &rarr; (peso 1)</div>
-            <div class="exp-rule-item"><code>R19-menores-expuestos</code>: Menores en riesgo sanitario &rarr; (peso 1)</div>
-          </div>
-        </div>
-
-        <div class="expert-layer-card">
-          <div class="layer-header layer-capa3">
-            <span class="layer-tag">CAPA 3 (Salience 40 a 10)</span>
-            <h4>Dictamen CSE y Alertas Sociales</h4>
-          </div>
-          <p class="layer-desc">Calcula puntaje acumulado (R24), emite dictamen CSE monetario (R21-R23) y genera alertas de exclusión o atención (R28-R30).</p>
-          <div class="layer-rules-list">
-            <div class="exp-rule-item"><code>R21-pobreza-extrema</code>: Bajo LPE &rarr; Dictamen Pobreza Extrema</div>
-            <div class="exp-rule-item"><code>R23-no-pobre</code>: Sobre LPT &rarr; Dictamen No Pobre</div>
-            <div class="exp-rule-item"><code>R28-alerta-atencion</code>: Pobre Extremo + Privación Alta &rarr; Prioritario</div>
-            <div class="exp-rule-item"><code>R30-alerta-revision</code>: No Pobre + Privación Alta &rarr; Posible Exclusión</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Barra de Descarga del Código CLIPS -->
-      <div class="expert-source-action">
-        <div class="action-text">
-          <strong>Archivo de Producción CLIPS:</strong>
-          <span>Contiene las 30 reglas formales con defrules, salience, defglobal y definstances.</span>
-        </div>
-        <a href="cse_sistema_experto.clp" download class="btn-clips-download">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Descargar cse_sistema_experto.clp
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================================
        SECCIÓN 5: AUDITORÍA Y DICTAMEN SOCIAL OFICIAL
        ========================================================================= -->
-  <section class="landing-section section-elevated" id="auditoria">
+  <section class="landing-section" id="auditoria">
     <div class="section-container">
       
       <div class="section-header-center">
@@ -701,61 +700,6 @@
   </section>
 
   <!-- =========================================================================
-       SECCIÓN 6: MARCO TEÓRICO & METODOLÓGICO
-       ========================================================================= -->
-  <section class="landing-section" id="teoria">
-    <div class="section-container">
-      
-      <div class="section-header-center">
-        <span class="section-eyebrow">FUNDAMENTOS ACADÉMICOS</span>
-        <h2 class="section-title">Marco Teórico y Fundamentos Metodológicos</h2>
-        <p class="section-lead">
-          Epistemología comparativa: Lógica Booleana frente a Lógica Difusa y alineamiento estratégico a la Agenda 2030.
-        </p>
-      </div>
-
-      <div class="docs-grid-three">
-        
-        <div class="doc-card">
-          <div class="doc-card-badge">ODS 1: AGENDA 2030</div>
-          <h3 class="doc-title">1. Alineamiento al ODS 1: Fin de la Pobreza</h3>
-          <p>
-            El Objetivo de Desarrollo Sostenible 1 busca erradicar la pobreza en todas sus formas para el año 2030. La <strong>Meta 1.2</strong> exige reducir al menos a la mitad la proporción de personas de todas las edades que viven en la pobreza en todas sus dimensiones. La <strong>Meta 1.3</strong> insta a implementar sistemas y medidas apropiadas de protección social con amplia cobertura de los pobres y los vulnerables.
-          </p>
-          <p>
-            Los clasificadores binarios tradicionales sufren del <em>efecto acantilado</em> (una variación marginal de centavos cambia bruscamente el estatus de un hogar). Este sistema difuso resuelve ese problema asignando una prioridad continua, gradual y equitativa.
-          </p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card-badge">MODELADO MATEMÁTICO</div>
-          <h3 class="doc-title">2. Dispositivo de Inferencia Mamdani</h3>
-          <ul class="doc-list">
-            <li><strong>Fusificación:</strong> Funciones triangulares <code>trimf(x; a, b, c)</code> y trapezoidales <code>trapmf(x; a, b, c, d)</code> continuas.</li>
-            <li><strong>T-Norma (AND):</strong> Operador Mínimo: &alpha;<sub>k</sub> = min(&mu;<sub>1</sub>, &mu;<sub>2</sub>, &mu;<sub>3</sub>).</li>
-            <li><strong>Implicación:</strong> Mínimo de Mamdani: min(&alpha;<sub>k</sub>, &mu;<sub>out</sub>).</li>
-            <li><strong>S-Norma (OR / Agregación):</strong> Operador Máximo: &mu;<sub>agg</sub>(y) = max(&mu;'<sub>k</sub>(y)).</li>
-            <li><strong>Desfuzificación por Centroide (COG):</strong> Cálculo exacto del baricentro continuo: y* = &int; y &middot; &mu;<sub>agg</sub>(y) dy / &int; &mu;<sub>agg</sub>(y) dy.</li>
-          </ul>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card-badge">JUSTICIA DISTRIBUTIVA</div>
-          <h3 class="doc-title">3. Paradoja Multidimensional (Caso 4)</h3>
-          <p>
-            El Caso 4 expone un hogar con gasto per cápita de <strong>S/ 668.36</strong> frente a una línea de <strong>S/ 373.46</strong> (178.9% de cobertura). Bajo el modelo monetario rígido tradicional, es catalogado como "No Pobre".
-          </p>
-          <p>
-            Sin embargo, al habitar en piso de tierra sin luz ni agua y con 3 niños a su cargo, el sistema difuso Mamdani detecta su privación estructural oculta y le otorga un <strong>IVS del 62.5% (Prioridad Alta)</strong>, garantizándole acompañamiento social de oficio y evitando su abandono institucional.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================================
        PIE DE PÁGINA (FOOTER INSTITUCIONAL)
        ========================================================================= -->
   <footer class="landing-footer">
@@ -777,7 +721,7 @@
           <h4>Recursos del Proyecto</h4>
           <ul>
             <li><a href="sistema_difuso_pobreza_ods1.ipynb" download>Cuaderno Google Colab (.ipynb)</a></li>
-            <li><a href="cse_sistema_experto.clp" download>Código Fuente CLIPS (.clp)</a></li>
+            <li><a href="cse_sistema_experto.clp" download>Reglas del S. Experto (.clp)</a></li>
             <li><a href="https://github.com/EdsonPerez7/SistemasInteligentes" target="_blank" rel="noopener">Repositorio en GitHub</a></li>
             <li><a href="https://sistemasinteligentes-unmsm.pages.dev" target="_blank" rel="noopener">Despliegue Cloudflare Pages</a></li>
           </ul>
@@ -788,10 +732,9 @@
           <ul>
             <li><a href="#hero">Inicio / Presets</a></li>
             <li><a href="#comparativa">Comparativa Dual</a></li>
-            <li><a href="#sistema-difuso">Simulador Difuso</a></li>
             <li><a href="#sistema-experto">Sistema Experto</a></li>
+            <li><a href="#sistema-difuso">Sistema Difuso</a></li>
             <li><a href="#auditoria">Auditoría MIDIS</a></li>
-            <li><a href="#teoria">Marco Teórico</a></li>
           </ul>
         </div>
       </div>
