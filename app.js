@@ -609,9 +609,12 @@ function actualizarInferencia() {
   // Actualizar tabla de reglas disparadas
   actualizarTablaReglas(res.activas);
 
-  // Actualizar contadores y badges de la barra lateral
+  // Actualizar contadores y badges
   const navRulesPill = document.getElementById('nav-active-rules-pill');
   if (navRulesPill) navRulesPill.textContent = `${res.activas.length} Activas`;
+
+  const rulesActivePill = document.getElementById('rules-active-count-pill');
+  if (rulesActivePill) rulesActivePill.textContent = `${res.activas.length} activas`;
 
   const activeCountEl = document.getElementById('sidebar-active-rules-count');
   if (activeCountEl) activeCountEl.textContent = res.activas.length;
@@ -753,68 +756,53 @@ function calcularDesdePersonas() {
 }
 
 // =============================================================================
+// 6. NAVEGACIÓN Y DESPLAZAMIENTO SUAVE ENTRE SECCIONES DE LA LANDING PAGE
 // =============================================================================
-// 6. NAVEGACIÓN ENTRE VISTAS Y CONTROL DE LA BARRA LATERAL IZQUIERDA
-// =============================================================================
 
-function navegarA(viewId) {
-  // Ocultar todas las secciones de vista
-  document.querySelectorAll('.view-panel').forEach((panel) => {
-    panel.classList.remove('active');
-  });
-
-  // Desactivar todos los botones de navegación en la barra lateral
-  document.querySelectorAll('.nav-item').forEach((item) => {
-    item.classList.remove('active');
-  });
-
-  // Activar la vista y el botón seleccionados
-  const panel = document.getElementById(`view-${viewId}`);
-  const navBtn = document.getElementById(`nav-${viewId}`);
-
-  if (panel) panel.classList.add('active');
-  if (navBtn) navBtn.classList.add('active');
-
-  // Actualizar títulos en el encabezado superior (Topbar)
-  const metaTitulos = {
-    inicio: {
-      titulo: 'Inicio / Comparativa Dual',
-      subtitulo: 'Evaluación Socioeconómica: Sistema Experto (CLIPS) vs. Sistema Difuso (Mamdani)'
-    },
-    experto: {
-      titulo: 'Sistema Experto Basado en Reglas (CLIPS / 30 Reglas)',
-      subtitulo: 'Encadenamiento hacia adelante en 3 capas jerárquicas con control de salience'
-    },
-    difuso: {
-      titulo: 'Sistema de Inferencia Difusa (Mamdani / 27 Reglas)',
-      subtitulo: 'Matriz exhaustiva 3×3×3 de implicación, desfuzificación por centroide y gradualidad'
-    },
-    herramientas: {
-      titulo: 'Herramientas de Auditoría & Dictamen Oficial',
-      subtitulo: 'Expediente técnico con certificación dual para el MIDIS / SISFOH'
-    },
-    teoria: {
-      titulo: 'Marco Teórico y Fundamentos Metodológicos',
-      subtitulo: 'Epistemología comparativa: Lógica Booleana vs. Lógica Difusa y alineamiento ODS 1'
-    }
+function navegarA(target) {
+  const map = {
+    'inicio': 'hero',
+    'comparativa': 'comparativa',
+    'experto': 'sistema-experto',
+    'difuso': 'sistema-difuso',
+    'herramientas': 'auditoria',
+    'auditoria': 'auditoria',
+    'teoria': 'teoria'
   };
 
-  if (metaTitulos[viewId]) {
-    const titleEl = document.getElementById('topbar-section-title');
-    const subEl = document.getElementById('topbar-section-subtitle');
-    if (titleEl) titleEl.textContent = metaTitulos[viewId].titulo;
-    if (subEl) subEl.textContent = metaTitulos[viewId].subtitulo;
-  }
-
-  // Desplazar el contenido principal al inicio
-  const scrollContainer = document.querySelector('.content-scrollable');
-  if (scrollContainer) scrollContainer.scrollTop = 0;
-
-  // Redibujar gráficos si se regresa a Inicio
-  if (viewId === 'inicio') {
-    actualizarInferencia();
+  const id = map[target] || target;
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 }
+
+function inicializarNavegacionScroll() {
+  const navLinks = document.querySelectorAll('.navbar-menu .nav-link');
+  const sections = document.querySelectorAll('header.hero-section, section.landing-section');
+
+  window.addEventListener('scroll', () => {
+    let currentId = 'hero';
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    sections.forEach((section) => {
+      const top = section.offsetTop - 120;
+      const height = section.offsetHeight;
+      if (scrollY >= top && scrollY < top + height) {
+        currentId = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach((link) => {
+      if (link.getAttribute('data-target') === currentId || link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }, { passive: true });
+}
+
 
 let sidebarFiltroCategoria = 'TODAS';
 let sidebarUltimasActivas = [];
@@ -946,5 +934,7 @@ function copiarInforme() {
 if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', () => {
     cargarCaso(1);
+    inicializarNavegacionScroll();
   });
 }
+

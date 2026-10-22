@@ -3,671 +3,806 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sistema de Inferencia Difusa Mamdani para la Clasificación Socioeconómica Multidimensional y Priorización de Subsidios Sociales. Alineado con el ODS 1: Fin de la Pobreza de la Agenda 2030.">
+  <meta name="description" content="Sistemas Inteligentes: Observatorio Socioeconómico ODS 1. Comparativa dual entre Sistemas Expertos (CLIPS) y Lógica Difusa Mamdani con microdatos ENAHO / SISFOH.">
   <title>Sistemas Inteligentes: Observatorio Socioeconómico ODS 1</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Layout General con Barra Lateral Izquierda -->
-  <div class="app-layout">
-    
-    <!-- Barra Lateral Izquierda (Sidebar Fija) -->
-    <aside class="left-sidebar" id="left-sidebar">
-      <div class="sidebar-brand">
-        <div class="brand-badge">
-          <span class="badge-dot"></span>
-          <span>ODS 1: Fin de la Pobreza</span>
+  <!-- =========================================================================
+       BARRA DE NAVEGACIÓN SUPERIOR (STICKY NAVBAR)
+       ========================================================================= -->
+  <nav class="landing-navbar" id="landing-navbar">
+    <div class="navbar-container">
+      
+      <!-- Brand & Título -->
+      <a href="#hero" class="navbar-brand">
+        <div class="brand-badge-pill">
+          <span class="badge-dot-live"></span>
+          <span>ODS 1</span>
         </div>
-        <h2 class="sidebar-brand-title">Sistemas Inteligentes</h2>
-        <p class="sidebar-brand-sub">Observatorio Socioeconómico ODS 1</p>
+        <div class="brand-text-group">
+          <span class="brand-title">Sistemas Inteligentes</span>
+          <span class="brand-subtitle">Observatorio Socioeconómico ODS 1</span>
+        </div>
+      </a>
+
+      <!-- Menú de Enlaces a Secciones -->
+      <div class="navbar-menu" id="navbar-menu">
+        <a href="#hero" class="nav-link active" data-target="hero">Inicio</a>
+        <a href="#comparativa" class="nav-link" data-target="comparativa">Comparativa Dual</a>
+        <a href="#sistema-difuso" class="nav-link" data-target="sistema-difuso">Sistema Difuso</a>
+        <a href="#sistema-experto" class="nav-link" data-target="sistema-experto">Sistema Experto</a>
+        <a href="#auditoria" class="nav-link" data-target="auditoria">Auditoría</a>
+        <a href="#teoria" class="nav-link" data-target="teoria">Marco Teórico</a>
       </div>
 
-      <!-- Menú de Navegación entre Vistas -->
-      <nav class="sidebar-nav">
-        <button class="nav-item active" id="nav-inicio" onclick="navegarA('inicio')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>Inicio / Comparativa Dual</span>
-        </button>
-
-        <button class="nav-item" id="nav-experto" onclick="navegarA('experto')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>Sistema Experto (CLIPS)</span>
-          <span class="nav-counter" id="nav-experto-rules-pill">30 Reglas</span>
-        </button>
-
-        <button class="nav-item" id="nav-difuso" onclick="navegarA('difuso')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
-          <span>Sistema Difuso (Mamdani)</span>
-          <span class="nav-counter" id="nav-active-rules-pill">27 Reglas</span>
-        </button>
-
-        <button class="nav-item" id="nav-herramientas" onclick="navegarA('herramientas')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          <span>Herramientas &amp; Auditoría</span>
-        </button>
-
-        <button class="nav-item" id="nav-teoria" onclick="navegarA('teoria')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          <span>Marco Teórico Dual</span>
-        </button>
-      </nav>
-
-      <!-- Botón de Descarga Colab en el pie de la barra lateral -->
-      <div class="sidebar-footer">
-        <a href="sistema_difuso_pobreza_ods1.ipynb" download class="btn-download-colab" title="Descargar cuaderno para Google Colab">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <!-- Acciones de Cabecera -->
+      <div class="navbar-actions">
+        <a href="sistema_difuso_pobreza_ods1.ipynb" download class="btn-navbar-download" title="Descargar cuaderno ejecutable para Google Colab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Descargar Colab (.ipynb)</span>
         </a>
       </div>
-    </aside>
 
-    <!-- Contenido Principal Dinámico -->
-    <main class="main-workspace">
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       SECCIÓN 1: HERO / PRESENTACIÓN & PRESETS DE CASOS ENAHO
+       ========================================================================= -->
+  <header class="hero-section" id="hero">
+    <div class="hero-container">
       
-      <!-- Topbar Superior con Título de la Sección Activa -->
-      <header class="topbar">
-        <div>
-          <h1 class="topbar-title" id="topbar-section-title">Inicio / Simulador Difuso</h1>
-          <p class="topbar-subtitle" id="topbar-section-subtitle">Evaluación Socioeconómica Multidimensional de Hogares (SISFOH / ENAHO)</p>
-        </div>
-        <div class="topbar-badge-status">
-          <span class="status-indicator"></span>
-          <span>Motor Mamdani Activo (Centroide Puro)</span>
-        </div>
-      </header>
+      <div class="hero-badge-wrap">
+        <span class="hero-institution-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          UNMSM FISI &bull; Escuela Profesional de Ingeniería de Sistemas &bull; Sistemas Inteligentes
+        </span>
+      </div>
 
-      <div class="content-scrollable">
+      <h1 class="hero-title">
+        Sistemas Inteligentes:<br>
+        <span class="gradient-text">Observatorio Socioeconómico ODS 1</span>
+      </h1>
 
-        <!-- ===================================================================
-             VISTA 1: INICIO / SIMULADOR (DASHBOARD)
-             =================================================================== -->
-        <section class="view-panel active" id="view-inicio">
+      <p class="hero-description">
+        Plataforma interactiva para la focalización y priorización de subsidios sociales. Evaluación multidimensional simultánea contrastando la <strong>Lógica Booleana de Sistemas Expertos (CLIPS &bull; 30 Reglas en 3 Capas)</strong> frente a la <strong>Lógica Continua de Inferencia Difusa (Mamdani &bull; 27 Reglas con Centroide Puro)</strong> sobre microdatos reales de la ENAHO.
+      </p>
+
+      <!-- Resumen Cuantitativo Rápido (Stats Bar) -->
+      <div class="hero-stats-bar">
+        <div class="stat-item">
+          <div class="stat-number">30</div>
+          <div class="stat-label">Reglas CLIPS (3 Capas)</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">27</div>
+          <div class="stat-label">Reglas Mamdani (Centroide)</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Casos ENAHO Verificados</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">0%</div>
+          <div class="stat-label">Efecto Acantilado (Continuo)</div>
+        </div>
+      </div>
+
+      <!-- Selector Rápido de Casos ENAHO Reales -->
+      <div class="hero-presets-card">
+        <div class="presets-intro">
+          <div class="presets-intro-text">
+            <h3>Seleccione un Caso de Prueba Real (Muestra ENAHO / SISFOH)</h3>
+            <p>Haga clic en cualquiera de los 4 hogares para cargar sus microdatos y recalcular ambos sistemas en tiempo real:</p>
+          </div>
+          <span class="presets-sync-badge">
+            <span class="sync-dot"></span> Sincronización Dual Activa
+          </span>
+        </div>
+
+        <div class="presets-grid">
+          <button class="preset-card active" id="preset-caso-1" onclick="cargarCaso(1)">
+            <div class="preset-header">
+              <span class="preset-pill pill-danger">Caso 1</span>
+              <span class="preset-type">Rural Crítico</span>
+            </div>
+            <div class="preset-desc">Gasto S/ 210, piso tierra, sin luz, 3 menores a cargo.</div>
+            <div class="preset-meta">
+              <span>R_Gasto: <strong>61.3%</strong></span>
+              <span>ICVS: <strong>8.0 pts</strong></span>
+              <span>TD: <strong>1.50</strong></span>
+            </div>
+          </button>
+
+          <button class="preset-card" id="preset-caso-2" onclick="cargarCaso(2)">
+            <div class="preset-header">
+              <span class="preset-pill pill-warning">Caso 2</span>
+              <span class="preset-type">Urbano Vulnerable</span>
+            </div>
+            <div class="preset-desc">Gasto S/ 329, sin red eléctrica, saneamiento precario.</div>
+            <div class="preset-meta">
+              <span>R_Gasto: <strong>76.9%</strong></span>
+              <span>ICVS: <strong>5.0 pts</strong></span>
+              <span>TD: <strong>0.50</strong></span>
+            </div>
+          </button>
+
+          <button class="preset-card" id="preset-caso-3" onclick="cargarCaso(3)">
+            <div class="preset-header">
+              <span class="preset-pill pill-success">Caso 3</span>
+              <span class="preset-type">Urbano Consolidado</span>
+            </div>
+            <div class="preset-desc">Gasto S/ 1220, vivienda propia con todos los servicios.</div>
+            <div class="preset-meta">
+              <span>R_Gasto: <strong>214.8%</strong></span>
+              <span>ICVS: <strong>0.0 pts</strong></span>
+              <span>TD: <strong>1.00</strong></span>
+            </div>
+          </button>
+
+          <button class="preset-card" id="preset-caso-4" onclick="cargarCaso(4)">
+            <div class="preset-header">
+              <span class="preset-pill pill-purple">Caso 4</span>
+              <span class="preset-type">Paradoja Multidimensional</span>
+            </div>
+            <div class="preset-desc">Gasto monetario sobre LPT (178.9%), pero sin agua ni luz y hacinado.</div>
+            <div class="preset-meta">
+              <span>R_Gasto: <strong>178.9%</strong></span>
+              <span>ICVS: <strong>7.0 pts</strong></span>
+              <span>TD: <strong>1.50</strong></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SECCIÓN 2: EVALUACIÓN COMPARATIVA DUAL (CARA A CARA)
+       ========================================================================= -->
+  <section class="landing-section" id="comparativa">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">DIAGNÓSTICO SIMULTÁNEO</span>
+        <h2 class="section-title">Evaluación Comparativa Dual: Sistema Experto vs. Sistema Difuso</h2>
+        <p class="section-lead">
+          Observe cómo el mismo hogar es diagnosticado bajo dos paradigmas de Inteligencia Artificial: clasificación simbólica discreta (CLIPS) versus razonamiento continuo con incertidumbre (Mamdani).
+        </p>
+      </div>
+
+      <!-- Tarjetas Cara a Cara -->
+      <div class="dual-eval-grid">
+        
+        <!-- Tarjeta 1: Sistema Experto (CLIPS / Lógica Booleana) -->
+        <div class="eval-card eval-card-expert">
+          <div class="eval-card-header">
+            <div class="eval-badge badge-expert-tag">PARADIGMA 1 &bull; LÓGICA BOOLEANA</div>
+            <h3 class="eval-card-title">Clasificación Simbólica (CLIPS)</h3>
+            <p class="eval-card-sub">Motor de producción determinista con salience jerárquico</p>
+          </div>
           
-          <!-- Presets Bar (4 Corridas ENAHO) -->
-          <div class="presets-section">
-            <div class="section-tag">
-              <span>CASOS DE PRUEBA REALES (ENAHO 2025 / SISFOH)</span>
+          <div class="eval-status-box">
+            <span class="eval-status-label">Dictamen CSE Oficial:</span>
+            <div class="eval-status-val status-expert-val" id="comp-clips-val">Pobreza Extrema</div>
+          </div>
+
+          <div class="eval-details-list">
+            <div class="eval-detail-row">
+              <span class="detail-name">Tramo Monetario (R01-R03):</span>
+              <strong id="exp-fact-tramo">Bajo LPE (Gasto &lt; LPE)</strong>
             </div>
-            <div class="presets-grid">
-              <button class="preset-card active" id="preset-caso-1" onclick="cargarCaso(1)">
-                <div class="preset-header">
-                  <span class="preset-pill pill-danger">Caso 1</span>
-                  <span class="preset-type">Rural Crítico</span>
-                </div>
-                <div class="preset-desc">Gasto S/ 210, sin luz, piso tierra, 3 menores.</div>
-                <div class="preset-meta">R_Gasto: 61.3% | ICVS: 8.0 | TD: 1.5</div>
-              </button>
-
-              <button class="preset-card" id="preset-caso-2" onclick="cargarCaso(2)">
-                <div class="preset-header">
-                  <span class="preset-pill pill-warning">Caso 2</span>
-                  <span class="preset-type">Urbano Vulnerable</span>
-                </div>
-                <div class="preset-desc">Gasto S/ 329, sin luz, saneamiento deficiente.</div>
-                <div class="preset-meta">R_Gasto: 76.9% | ICVS: 5.0 | TD: 0.5</div>
-              </button>
-
-              <button class="preset-card" id="preset-caso-3" onclick="cargarCaso(3)">
-                <div class="preset-header">
-                  <span class="preset-pill pill-success">Caso 3</span>
-                  <span class="preset-type">Urbano Consolidado</span>
-                </div>
-                <div class="preset-desc">Gasto S/ 1220, vivienda con todos los servicios.</div>
-                <div class="preset-meta">R_Gasto: 214.8% | ICVS: 0.0 | TD: 1.0</div>
-              </button>
-
-              <button class="preset-card" id="preset-caso-4" onclick="cargarCaso(4)">
-                <div class="preset-header">
-                  <span class="preset-pill pill-purple">Caso 4</span>
-                  <span class="preset-type">Paradoja Multidimensional</span>
-                </div>
-                <div class="preset-desc">Gasto superior (178.9%), pero sin agua ni luz y hacinado.</div>
-                <div class="preset-meta">R_Gasto: 178.9% | ICVS: 7.0 | TD: 1.5</div>
-              </button>
+            <div class="eval-detail-row">
+              <span class="detail-name">Tasa Dependencia (R04-R06):</span>
+              <strong id="exp-fact-dep">Alta (TD &gt; 1.0)</strong>
+            </div>
+            <div class="eval-detail-row">
+              <span class="detail-name">Privaciones Materiales (R24):</span>
+              <strong id="exp-fact-priv">8 / 9 pts (Vulnerabilidad Alta)</strong>
+            </div>
+            <div class="eval-detail-row alert-row" id="exp-alert-container">
+              <span class="detail-name">Alerta de Gestión (R28-R30):</span>
+              <strong id="exp-fact-alerta">Atención Prioritaria (R28)</strong>
             </div>
           </div>
 
-          <!-- Dashboard Grid: Entradas vs Salida -->
-          <div class="dashboard-grid">
-            
-            <!-- Columna Izquierda: Entradas -->
-            <section class="card input-card">
-              <div class="card-header">
-                <div class="card-title-group">
-                  <div class="icon-circle icon-input">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
-                  </div>
-                  <div>
-                    <h2 class="card-title">1. Variables de Entrada (Insumos)</h2>
-                    <p class="card-subtitle">Ajuste los controles deslizantes o use los desgloses</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="card-body">
-                <!-- Variable 1: R_Gasto -->
-                <div class="input-group">
-                  <div class="input-header">
-                    <label for="slider-gasto" class="input-label">
-                      <strong>1. Cobertura de Línea de Pobreza</strong>
-                      <span class="label-formula">(Gasto per cápita / LPT × 100%)</span>
-                    </label>
-                    <div class="input-value-badge" id="badge-gasto-val">61.3%</div>
-                  </div>
-                  <input type="range" id="slider-gasto" min="0" max="250" step="0.5" value="61.3" class="custom-range" oninput="actualizarInferencia()">
-                  <div class="range-marks">
-                    <span>0% (Indigencia)</span>
-                    <span>100% (LPT)</span>
-                    <span>250% (Holgado)</span>
-                  </div>
-                  
-                  <!-- Membresías activas de Entrada 1 -->
-                  <div class="membership-tags" id="tags-gasto">
-                    <span class="mf-tag" data-tag="Critico">Crítico: <strong>0.55</strong></span>
-                    <span class="mf-tag" data-tag="Vulnerable">Vulnerable: <strong>0.18</strong></span>
-                    <span class="mf-tag" data-tag="Suficiente">Suficiente: <strong>0.00</strong></span>
-                  </div>
-
-                  <!-- Gráfica SVG interactiva de Entrada 1 -->
-                  <div class="chart-container mini-chart">
-                    <svg id="svg-gasto" viewBox="0 0 360 80"></svg>
-                  </div>
-
-                  <!-- Calculadora Monetaria Rápida (Soles a %) -->
-                  <details class="privations-collapse">
-                    <summary>Desglosar gasto en Soles (Calculadora monetaria)</summary>
-                    <div class="inline-calc-box">
-                      <div class="calc-grid-2">
-                        <div class="calc-col">
-                          <label for="calc-inp-gasto">Gasto mensual pc (S/):</label>
-                          <input type="number" id="calc-inp-gasto" value="210.16" step="10" oninput="calcularGastoDesdeSoles()">
-                        </div>
-                        <div class="calc-col">
-                          <label for="calc-inp-lpt">Línea de Pobreza LPT (S/):</label>
-                          <input type="number" id="calc-inp-lpt" value="342.91" step="10" oninput="calcularGastoDesdeSoles()">
-                        </div>
-                      </div>
-                      <div class="calc-badge-res" id="calc-gasto-formula">
-                        Ratio: (S/ 210.16 &divide; S/ 342.91) &times; 100% = <strong>61.3%</strong>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-
-                <hr class="separator">
-
-                <!-- Variable 2: ICVS -->
-                <div class="input-group">
-                  <div class="input-header">
-                    <label for="slider-carencia" class="input-label">
-                      <strong>2. Carencias de Servicios y Vivienda (ICVS)</strong>
-                      <span class="label-formula">(0 = Óptimo, 9 = Extremo)</span>
-                    </label>
-                    <div class="input-value-badge" id="badge-carencia-val">8.0 pts</div>
-                  </div>
-                  <input type="range" id="slider-carencia" min="0" max="9" step="0.5" value="8.0" class="custom-range" oninput="actualizarInferencia()">
-                  <div class="range-marks">
-                    <span>0 (Sin privaciones)</span>
-                    <span>4.5 (Moderado)</span>
-                    <span>9 (Extremo)</span>
-                  </div>
-
-                  <!-- Membresías activas de Entrada 2 -->
-                  <div class="membership-tags" id="tags-carencia">
-                    <span class="mf-tag" data-tag="Bajo">Bajo: <strong>0.00</strong></span>
-                    <span class="mf-tag" data-tag="Moderado">Moderado: <strong>0.00</strong></span>
-                    <span class="mf-tag" data-tag="Severo">Severo: <strong>1.00</strong></span>
-                  </div>
-
-                  <!-- Gráfica SVG interactiva de Entrada 2 -->
-                  <div class="chart-container mini-chart">
-                    <svg id="svg-carencia" viewBox="0 0 360 80"></svg>
-                  </div>
-
-                  <!-- Selector rápido de privaciones ENAHO -->
-                  <details class="privations-collapse">
-                    <summary>Desglosar privaciones ENAHO (Checklist de carencias)</summary>
-                    <div class="privations-checklist">
-                      <label><input type="checkbox" id="chk-piso" onchange="calcularIcvsDesdeChecks()"> Piso predominantemente de tierra (+1.0 pt)</label>
-                      <label><input type="checkbox" id="chk-hacinamiento" onchange="calcularIcvsDesdeChecks()"> Hacinamiento: >3 personas/habitación (+1.0 pt)</label>
-                      <label><input type="checkbox" id="chk-luz" onchange="calcularIcvsDesdeChecks()"> Sin conexión eléctrica (+3.0 pts)</label>
-                      <label><input type="checkbox" id="chk-agua" onchange="calcularIcvsDesdeChecks()"> Sin agua de red pública (+1.0 pt)</label>
-                      <label><input type="checkbox" id="chk-saneamiento" onchange="calcularIcvsDesdeChecks()"> Saneamiento inadecuado (+1.0 pt)</label>
-                      <label><input type="checkbox" id="chk-combustible" onchange="calcularIcvsDesdeChecks()"> Cocina con leña o carbón (+1.0 pt)</label>
-                      <label><input type="checkbox" id="chk-internet" onchange="calcularIcvsDesdeChecks()"> Sin servicio de internet (+1.0 pt)</label>
-                    </div>
-                  </details>
-                </div>
-
-                <hr class="separator">
-
-                <!-- Variable 3: TD -->
-                <div class="input-group">
-                  <div class="input-header">
-                    <label for="slider-dep" class="input-label">
-                      <strong>3. Tasa de Dependencia Demográfica (TD)</strong>
-                      <span class="label-formula">(Menores + Mayores) / Miembros Activos</span>
-                    </label>
-                    <div class="input-value-badge" id="badge-dep-val">1.50</div>
-                  </div>
-                  <input type="range" id="slider-dep" min="0" max="3" step="0.05" value="1.50" class="custom-range" oninput="actualizarInferencia()">
-                  <div class="range-marks">
-                    <span>0.0 (Sin dependientes)</span>
-                    <span>1.0 (1 dep / activo)</span>
-                    <span>3.0 (Alta carga)</span>
-                  </div>
-
-                  <!-- Membresías activas de Entrada 3 -->
-                  <div class="membership-tags" id="tags-dep">
-                    <span class="mf-tag" data-tag="Baja">Baja: <strong>0.00</strong></span>
-                    <span class="mf-tag" data-tag="Media">Media: <strong>0.00</strong></span>
-                    <span class="mf-tag" data-tag="Alta">Alta: <strong>0.80</strong></span>
-                  </div>
-
-                  <!-- Gráfica SVG interactiva de Entrada 3 -->
-                  <div class="chart-container mini-chart">
-                    <svg id="svg-dep" viewBox="0 0 360 80"></svg>
-                  </div>
-
-                  <!-- Calculadora Demográfica Interactiva -->
-                  <details class="privations-collapse">
-                    <summary>Desglosar miembros del hogar (Calculadora demográfica)</summary>
-                    <div class="inline-calc-box">
-                      <div class="calc-grid-3">
-                        <div class="calc-col">
-                          <label for="calc-inp-menores">Menores (&lt;15):</label>
-                          <input type="number" id="calc-inp-menores" value="3" min="0" max="15" oninput="calcularDesdePersonas()">
-                        </div>
-                        <div class="calc-col">
-                          <label for="calc-inp-mayores">Mayores (&ge;60):</label>
-                          <input type="number" id="calc-inp-mayores" value="0" min="0" max="10" oninput="calcularDesdePersonas()">
-                        </div>
-                        <div class="calc-col">
-                          <label for="calc-inp-activos">Activos (15-59):</label>
-                          <input type="number" id="calc-inp-activos" value="2" min="1" max="15" oninput="calcularDesdePersonas()">
-                        </div>
-                      </div>
-                      <div class="calc-badge-res" id="calc-dep-formula">
-                        Cálculo: (3 menores + 0 mayores) &divide; 2 activos = <strong>1.50 dependientes por activo</strong>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-
-              </div>
-            </section>
-
-            <!-- Columna Derecha: Salida Desfuzificada por Centroide Puro -->
-            <section class="card output-card">
-              <div class="card-header">
-                <div class="card-title-group">
-                  <div class="icon-circle icon-output">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                  </div>
-                  <div>
-                    <h2 class="card-title">2. Evaluación Comparativa Dual: Sistema Experto vs. Sistema Difuso</h2>
-                    <p class="card-subtitle">Dictamen booleano estricto frente a inferencia continua Mamdani para el mismo hogar</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="card-body">
-                
-                <!-- Panel de Inferencia Dual (Cara a Cara) -->
-                <div class="dual-eval-grid">
-                  
-                  <!-- Tarjeta 1: Sistema Experto (CLIPS / Lógica Booleana) -->
-                  <div class="eval-card eval-card-expert">
-                    <div class="eval-card-header">
-                      <div class="eval-badge badge-expert-tag">SISTEMA EXPERTO • LÓGICA BOOLEANA</div>
-                      <h3 class="eval-card-title">Clasificación Simbólica (CLIPS)</h3>
-                    </div>
-                    
-                    <div class="eval-status-box">
-                      <span class="eval-status-label">Dictamen CSE Oficial:</span>
-                      <div class="eval-status-val status-expert-val" id="comp-clips-val">Pobreza Extrema</div>
-                    </div>
-
-                    <div class="eval-details-list">
-                      <div class="eval-detail-row">
-                        <span>Tramo Monetario (R01-R03):</span>
-                        <strong id="exp-fact-tramo">Bajo LPE (Gasto &lt; LPE)</strong>
-                      </div>
-                      <div class="eval-detail-row">
-                        <span>Tasa Dependencia (R04-R06):</span>
-                        <strong id="exp-fact-dep">Alta (TD &gt; 1.0)</strong>
-                      </div>
-                      <div class="eval-detail-row">
-                        <span>Privaciones Materiales (R24):</span>
-                        <strong id="exp-fact-priv">8 / 9 pts (Vulnerabilidad Alta)</strong>
-                      </div>
-                      <div class="eval-detail-row alert-row" id="exp-alert-container">
-                        <span>Alerta de Gestión (R28-R30):</span>
-                        <strong id="exp-fact-alerta">Atención Prioritaria (R28)</strong>
-                      </div>
-                    </div>
-
-                    <div class="eval-policy-box policy-expert">
-                      <span class="policy-tag">Asignación Social Rígida (Todo o Nada):</span>
-                      <p id="exp-policy-text">
-                        Hogar focalizado bajo la línea monetaria. Asignación total (100%) de subsidios directos.
-                      </p>
-                    </div>
-                  </div>
-
-                  <!-- Tarjeta 2: Sistema Difuso (Mamdani / Lógica Continua) -->
-                  <div class="eval-card eval-card-fuzzy">
-                    <div class="eval-card-header">
-                      <div class="eval-badge badge-fuzzy-tag">SISTEMA DIFUSO • LÓGICA CONTINUA</div>
-                      <h3 class="eval-card-title">Inferencia Mamdani (Centroide)</h3>
-                    </div>
-
-                    <div class="eval-status-box">
-                      <span class="eval-status-label">Índice IVS (Centroide COG):</span>
-                      <div class="eval-status-val eval-fuzzy-val">
-                        <span class="metric-number-inline" id="out-ivs-val">87.0%</span>
-                        <span class="category-badge badge-urgente" id="out-category-badge">Urgente</span>
-                      </div>
-                    </div>
-
-                    <div class="eval-details-list">
-                      <div class="eval-detail-row">
-                        <span>Membresía Gasto:</span>
-                        <strong id="fuzzy-eval-gasto">Crítico: 0.55 | Vuln: 0.21</strong>
-                      </div>
-                      <div class="eval-detail-row">
-                        <span>Membresía Carencias:</span>
-                        <strong id="fuzzy-eval-carencia">Severo: 1.00</strong>
-                      </div>
-                      <div class="eval-detail-row">
-                        <span>Membresía Dependencia:</span>
-                        <strong id="fuzzy-eval-dep">Alta: 0.86</strong>
-                      </div>
-                      <div class="eval-detail-row highlight-row">
-                        <span>Reglas Disparadas:</span>
-                        <strong id="fuzzy-eval-rules">2 reglas activas (&alpha; &gt; 0)</strong>
-                      </div>
-                    </div>
-
-                    <div class="eval-policy-box policy-fuzzy">
-                      <span class="policy-tag">Acción de Política Gradual:</span>
-                      <p id="out-policy-text">
-                        Asignación prioritaria inmediata de Bono Alimentario de Emergencia, empadronamiento en Programa Juntos y tarifa social eléctrica.
-                      </p>
-                    </div>
-                  </div>
-
-                </div>
-
-                <!-- Output Defuzzification Curve Chart -->
-                <div class="defuzz-section">
-                  <div class="defuzz-header">
-                    <h3 class="section-subtitle">Superficie Agregada y Centroide de Salida</h3>
-                    <span class="defuzz-formula">COG: y* = &Sigma;(y &middot; &mu;<sub>agg</sub>) / &Sigma;(&mu;<sub>agg</sub>)</span>
-                  </div>
-                  <div class="chart-container large-chart">
-                    <svg id="svg-salida" viewBox="0 0 520 180"></svg>
-                  </div>
-                  <div class="chart-legend">
-                    <span class="leg-item"><span class="leg-box leg-baja"></span> Baja [0-30%]</span>
-                    <span class="leg-item"><span class="leg-box leg-media"></span> Media [20-55%]</span>
-                    <span class="leg-item"><span class="leg-box leg-alta"></span> Alta [45-80%]</span>
-                    <span class="leg-item"><span class="leg-box leg-urgente"></span> Urgente [70-100%]</span>
-                    <span class="leg-item"><span class="leg-line leg-cog"></span> Centroide (COG)</span>
-                  </div>
-                </div>
-
-                <!-- Mini Tabla de Reglas Activas en Inicio -->
-                <div class="rules-fired-section">
-                  <div class="rules-header">
-                    <h3 class="section-subtitle">Reglas Disparadas para este Hogar</h3>
-                    <button class="btn btn-outline btn-xs" onclick="navegarA('difuso')">Ver Matriz Completa (27) &rarr;</button>
-                  </div>
-                  <div class="rules-table-wrapper">
-                    <table class="rules-table">
-                      <thead>
-                        <tr>
-                          <th>Regla</th>
-                          <th>Condición IF (Gasto &amp; Carencias &amp; Dependencia)</th>
-                          <th>Salida THEN</th>
-                          <th>Fuerza (&alpha;)</th>
-                        </tr>
-                      </thead>
-                      <tbody id="rules-tbody">
-                        <!-- Llenado dinámicamente por JS -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
+          <div class="eval-policy-box policy-expert">
+            <span class="policy-tag">Asignación Social Rígida (Todo o Nada):</span>
+            <p id="exp-policy-text">
+              Hogar focalizado bajo la línea monetaria. Asignación total (100%) de subsidios directos.
+            </p>
           </div>
-        </section>
+        </div>
 
+        <!-- Tarjeta 2: Sistema Difuso (Mamdani / Lógica Continua) -->
+        <div class="eval-card eval-card-fuzzy">
+          <div class="eval-card-header">
+            <div class="eval-badge badge-fuzzy-tag">PARADIGMA 2 &bull; LÓGICA CONTINUA</div>
+            <h3 class="eval-card-title">Inferencia Mamdani (Centroide)</h3>
+            <p class="eval-card-sub">Motor continuo con T-Norma Min, S-Norma Max y Baricentro</p>
+          </div>
 
-        <!-- ===================================================================
-             VISTA 2: SISTEMA EXPERTO BASADO EN REGLAS (CLIPS - 30 REGLAS)
-             =================================================================== -->
-        <section class="view-panel" id="view-experto">
-          <div class="card full-width-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <div class="icon-circle icon-input">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <div>
-                  <h2 class="card-title">Motor de Inferencia del Sistema Experto (CLIPS)</h2>
-                  <p class="card-subtitle">Encadenamiento Hacia Adelante (Forward Chaining) en 3 Capas Jerárquicas con Control de Salience</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body">
-              
-              <!-- Inspector de Memoria de Trabajo en Vivo -->
-              <div class="expert-wm-box">
-                <div class="expert-wm-header">
-                  <span class="wm-title">Memoria de Trabajo Activa (Working Memory Facts) del Hogar Seleccionado:</span>
-                  <span class="wm-badge">Live Asserted Facts</span>
-                </div>
-                <div class="expert-facts-terminal" id="expert-wm-facts">
-                  <!-- Hechos assertados en tiempo real por app.js -->
-                </div>
-              </div>
-
-              <!-- Tres Capas de Razonamiento del CLP -->
-              <div class="expert-layers-grid">
-                
-                <div class="expert-layer-card">
-                  <div class="layer-header layer-capa1">
-                    <span class="layer-tag">CAPA 1 (Salience 100)</span>
-                    <h4>Derivación de Hechos Primarios</h4>
-                  </div>
-                  <p class="layer-desc">Infiere tramos de gasto monetario (R01-R03), dependencia demográfica (R04-R06) y condición de hacinamiento (R07-R08).</p>
-                  <div class="layer-rules-list">
-                    <div class="exp-rule-item"><code>R01-tramo-bajo-lpe</code>: Gasto &lt; LPE &rarr; (hecho tramo bajo-lpe)</div>
-                    <div class="exp-rule-item"><code>R02-tramo-entre-lpe-lpt</code>: LPE &le; Gasto &lt; LPT &rarr; (hecho tramo entre)</div>
-                    <div class="exp-rule-item"><code>R03-tramo-sobre-lpt</code>: Gasto &ge; LPT &rarr; (hecho tramo sobre)</div>
-                    <div class="exp-rule-item"><code>R04-dependencia-alta</code>: Dependientes &gt; Activos &rarr; (hecho dependencia alta)</div>
-                    <div class="exp-rule-item"><code>R07-hacinamiento-si</code>: Personas/Cuarto &gt; 3 &rarr; (hecho hacinamiento si)</div>
-                  </div>
-                </div>
-
-                <div class="expert-layer-card">
-                  <div class="layer-header layer-capa2">
-                    <span class="layer-tag">CAPA 2 (Salience 50 / 45)</span>
-                    <h4>Detección de Privaciones INEI</h4>
-                  </div>
-                  <p class="layer-desc">Evalúa privaciones directas (R09-R18) y privaciones encadenadas de segundo orden: menores expuestos (R19) y adultos mayores (R20).</p>
-                  <div class="layer-rules-list">
-                    <div class="exp-rule-item"><code>R09-habitabilidad-critica</code>: Hacinamiento + Piso tierra &rarr; (peso 3)</div>
-                    <div class="exp-rule-item"><code>R12-sin-electricidad</code>: Sin servicio eléctrico &rarr; (peso 3)</div>
-                    <div class="exp-rule-item"><code>R15-sin-agua-red</code>: Agua de pozo, río o cisterna &rarr; (peso 1)</div>
-                    <div class="exp-rule-item"><code>R16-saneamiento-inadecuado</code>: Letrina o pozo ciego &rarr; (peso 1)</div>
-                    <div class="exp-rule-item"><code>R19-menores-expuestos</code>: Menores en riesgo sanitario &rarr; (peso 1)</div>
-                  </div>
-                </div>
-
-                <div class="expert-layer-card">
-                  <div class="layer-header layer-capa3">
-                    <span class="layer-tag">CAPA 3 (Salience 40 a 10)</span>
-                    <h4>Dictamen CSE y Alertas Sociales</h4>
-                  </div>
-                  <p class="layer-desc">Calcula puntaje acumulado (R24), emite dictamen CSE monetario (R21-R23) y genera alertas de exclusión o atención (R28-R30).</p>
-                  <div class="layer-rules-list">
-                    <div class="exp-rule-item"><code>R21-pobreza-extrema</code>: Bajo LPE &rarr; Dictamen Pobreza Extrema</div>
-                    <div class="exp-rule-item"><code>R23-no-pobre</code>: Sobre LPT &rarr; Dictamen No Pobre</div>
-                    <div class="exp-rule-item"><code>R28-alerta-atencion</code>: Pobre Extremo + Privación Alta &rarr; Prioritario</div>
-                    <div class="exp-rule-item"><code>R30-alerta-revision</code>: No Pobre + Privación Alta &rarr; Posible Exclusión</div>
-                  </div>
-                </div>
-
-              </div>
-
+          <div class="eval-status-box">
+            <span class="eval-status-label">Índice IVS (Centroide COG):</span>
+            <div class="eval-status-val eval-fuzzy-val">
+              <span class="metric-number-inline" id="out-ivs-val">87.0%</span>
+              <span class="category-badge badge-urgente" id="out-category-badge">Urgente</span>
             </div>
           </div>
-        </section>
 
-
-        <!-- ===================================================================
-             VISTA 3: SISTEMA DIFUSO MAMDANI (27 REGLAS)
-             =================================================================== -->
-        <section class="view-panel" id="view-difuso">
-          <div class="card full-width-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <div class="icon-circle icon-input">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
-                </div>
-                <div>
-                  <h2 class="card-title">Matriz Completa de Reglas Difusas (27 Reglas)</h2>
-                  <p class="card-subtitle">Combinaciones exhaustivas 3 &times; 3 &times; 3 del modelo Mamdani con trazabilidad en vivo</p>
-                </div>
-              </div>
+          <div class="eval-details-list">
+            <div class="eval-detail-row">
+              <span class="detail-name">Membresía Gasto:</span>
+              <strong id="fuzzy-eval-gasto">Crítico: 0.55 | Vuln: 0.21</strong>
             </div>
-
-            <div class="card-body">
-              <div class="rules-filter-bar full-filter-bar">
-                <input type="text" id="filter-rules-search" placeholder="Filtrar por texto (ej. Urgente, Severo, R05, Vulnerable)..." oninput="filtrarReglasSidebar()" class="sidebar-search-input">
-                <div class="filter-chips">
-                  <button class="chip active" id="chip-todas" onclick="filtrarChip('TODAS')">Todas las Reglas (27)</button>
-                  <button class="chip chip-active-only" id="chip-activas" onclick="filtrarChip('ACTIVAS')">Solo Activas (<span id="chip-activas-count">3</span>)</button>
-                  <button class="chip" id="chip-urgente" onclick="filtrarChip('Urgente')">Urgente</button>
-                  <button class="chip" id="chip-alta" onclick="filtrarChip('Alta')">Alta</button>
-                  <button class="chip" id="chip-media" onclick="filtrarChip('Media')">Media</button>
-                  <button class="chip" id="chip-baja" onclick="filtrarChip('Baja')">Baja</button>
-                </div>
-              </div>
-
-              <div class="rules-grid-full" id="sidebar-rules-list">
-                <!-- Se llena dinámicamente con las 27 reglas -->
-              </div>
+            <div class="eval-detail-row">
+              <span class="detail-name">Membresía Carencias:</span>
+              <strong id="fuzzy-eval-carencia">Severo: 1.00</strong>
+            </div>
+            <div class="eval-detail-row">
+              <span class="detail-name">Membresía Dependencia:</span>
+              <strong id="fuzzy-eval-dep">Alta: 0.86</strong>
+            </div>
+            <div class="eval-detail-row highlight-row">
+              <span class="detail-name">Reglas Disparadas:</span>
+              <strong id="fuzzy-eval-rules">2 reglas activas (&alpha; &gt; 0)</strong>
             </div>
           </div>
-        </section>
 
-
-        <!-- ===================================================================
-             VISTA 3: HERRAMIENTAS & AUDITORÍA
-             =================================================================== -->
-        <section class="view-panel" id="view-herramientas">
-          <div class="card full-width-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <div class="icon-circle icon-docs">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                </div>
-                <div>
-                  <h2 class="card-title">Módulo de Auditoría y Dictamen Social</h2>
-                  <p class="card-subtitle">Informe formal auditable para expedientes del SISFOH / MIDIS</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body">
-              <div class="audit-toolbar">
-                <span class="audit-note">Este informe reproduce la traza formal de disparo y el dictamen del sistema difuso para auditorías públicas:</span>
-                <button class="btn btn-primary btn-sm" onclick="copiarInforme()">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                  Copiar Informe al Portapapeles
-                </button>
-              </div>
-              <span class="audit-status-tag" id="audit-copy-status"></span>
-              <pre class="audit-preview full-audit" id="audit-text-preview"></pre>
-            </div>
+          <div class="eval-policy-box policy-fuzzy">
+            <span class="policy-tag">Acción de Política Gradual:</span>
+            <p id="out-policy-text">
+              Asignación prioritaria inmediata de Bono Alimentario de Emergencia, empadronamiento en Programa Juntos y tarifa social eléctrica.
+            </p>
           </div>
-        </section>
-
-
-        <!-- ===================================================================
-             VISTA 4: MARCO TEÓRICO (SIN CLOUDFLARE)
-             =================================================================== -->
-        <section class="view-panel" id="view-teoria">
-          <div class="card full-width-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <div class="icon-circle icon-docs">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                </div>
-                <div>
-                  <h2 class="card-title">Marco Teórico y Fundamentos Metodológicos</h2>
-                  <p class="card-subtitle">Estructura académica rigurosa del sistema de inferencia difuso</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body">
-              <div class="docs-grid-three">
-                
-                <div class="doc-card">
-                  <h3 class="doc-title">1. Alineamiento al ODS 1: Fin de la Pobreza</h3>
-                  <p>
-                    El Objetivo de Desarrollo Sostenible 1 busca erradicar la pobreza en todas sus formas para el año 2030. La <strong>Meta 1.2</strong> exige reducir la pobreza multidimensional, mientras que la <strong>Meta 1.3</strong> insta a implementar sistemas de protección social con amplia cobertura de los pobres y los vulnerables.
-                  </p>
-                  <p>
-                    Los clasificadores binarios tradicionales sufren del <em>efecto acantilado</em> (una variación marginal de centavos cambia bruscamente el estatus de un hogar). Este sistema difuso resuelve ese problema asignando una prioridad continua, gradual y justa.
-                  </p>
-                </div>
-
-                <div class="doc-card">
-                  <h3 class="doc-title">2. Dispositivo de Inferencia Mamdani</h3>
-                  <ul class="doc-list">
-                    <li><strong>Fusificación:</strong> Funciones triangulares <code>trimf(x; a, b, c)</code> y trapezoidales <code>trapmf(x; a, b, c, d)</code>.</li>
-                    <li><strong>T-Norma (AND):</strong> Operador Mínimo: &alpha;<sub>k</sub> = min(&mu;<sub>1</sub>, &mu;<sub>2</sub>, &mu;<sub>3</sub>).</li>
-                    <li><strong>Implicación:</strong> Mínimo de Mamdani: min(&alpha;<sub>k</sub>, &mu;<sub>out</sub>).</li>
-                    <li><strong>S-Norma (OR / Agregación):</strong> Operador Máximo: &mu;<sub>agg</sub>(y) = max(&mu;'<sub>k</sub>(y)).</li>
-                    <li><strong>Desfuzificación por Centroide (COG):</strong> Cálculo del baricentro continuo de la superficie agregada.</li>
-                  </ul>
-                </div>
-
-                <div class="doc-card">
-                  <h3 class="doc-title">3. Paradoja Multidimensional (Caso 4)</h3>
-                  <p>
-                    El Caso 4 expone un hogar con gasto per cápita de <strong>S/ 668.36</strong> frente a una línea de <strong>S/ 373.46</strong> (178.9% de cobertura). Bajo el modelo monetario rígido tradicional, es catalogado como "No Pobre".
-                  </p>
-                  <p>
-                    Sin embargo, al habitar en piso de tierra sin luz ni agua y con 3 niños a su cargo, el sistema difuso Mamdani detecta su privación estructural oculta y le otorga un <strong>IVS del 62.5% (Prioridad Alta)</strong>, garantizándole acompañamiento social de oficio.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
 
       </div>
-    </main>
 
-  </div>
+      <!-- Banner de la Paradoja Multidimensional -->
+      <div class="paradox-callout-box">
+        <div class="paradox-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="paradox-content">
+          <h4>Resolución del Efecto Acantilado y la Paradoja Multidimensional (Caso 4)</h4>
+          <p>
+            Bajo el enfoque monetario convencional (Línea de Pobreza), un hogar con gasto superior a la canasta básica es catalogado como <em>"No Pobre"</em> y queda 100% excluido de transferencias sociales. Sin embargo, en la realidad, este hogar puede carecer de agua potable, electricidad y tener piso de tierra con 3 menores a cargo.
+            El <strong>Sistema Difuso Mamdani</strong> evalúa simultáneamente las 3 dimensiones y le otorga un <strong>IVS del 62.5% (Prioridad Alta)</strong>, superando el corte binario injusto.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 3: SIMULADOR DIFUSO INTERACTIVO MAMDANI
+       ========================================================================= -->
+  <section class="landing-section section-elevated" id="sistema-difuso">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">MOTOR DIFUSO INTERACTIVO</span>
+        <h2 class="section-title">Sistema de Inferencia Difusa Mamdani (27 Reglas)</h2>
+        <p class="section-lead">
+          Ajuste los controles deslizantes o utilice las calculadoras integradas para simular cualquier hogar y visualizar en tiempo real las funciones de pertenencia y la curva de desfuzificación por centroide.
+        </p>
+      </div>
+
+      <!-- Grid Principal del Simulador: Entradas vs Superficie Agregada -->
+      <div class="simulator-main-grid">
+        
+        <!-- Columna Izquierda: Controles de Entrada -->
+        <div class="card simulator-inputs-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="icon-circle icon-input">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">1. Variables de Entrada (Insumos)</h3>
+                <p class="card-subtitle">Desplace los deslizadores o abra los desgloses en soles</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            
+            <!-- Variable 1: R_Gasto -->
+            <div class="input-group">
+              <div class="input-header">
+                <label for="slider-gasto" class="input-label">
+                  <strong>1. Cobertura de Línea de Pobreza</strong>
+                  <span class="label-formula">(Gasto per cápita / LPT &times; 100%)</span>
+                </label>
+                <div class="input-value-badge" id="badge-gasto-val">61.3%</div>
+              </div>
+              <input type="range" id="slider-gasto" min="0" max="250" step="0.5" value="61.3" class="custom-range" oninput="actualizarInferencia()">
+              <div class="range-marks">
+                <span>0% (Indigencia)</span>
+                <span>100% (LPT)</span>
+                <span>250% (Holgado)</span>
+              </div>
+              
+              <!-- Membresías activas de Entrada 1 -->
+              <div class="membership-tags" id="tags-gasto">
+                <span class="mf-tag" data-tag="Critico">Crítico: <strong>0.55</strong></span>
+                <span class="mf-tag" data-tag="Vulnerable">Vulnerable: <strong>0.18</strong></span>
+                <span class="mf-tag" data-tag="Suficiente">Suficiente: <strong>0.00</strong></span>
+              </div>
+
+              <!-- Gráfica SVG interactiva de Entrada 1 -->
+              <div class="chart-container mini-chart">
+                <svg id="svg-gasto" viewBox="0 0 360 80"></svg>
+              </div>
+
+              <!-- Calculadora Monetaria Rápida (Soles a %) -->
+              <details class="privations-collapse">
+                <summary>Desglosar gasto en Soles (Calculadora monetaria)</summary>
+                <div class="inline-calc-box">
+                  <div class="calc-grid-2">
+                    <div class="calc-col">
+                      <label for="calc-inp-gasto">Gasto mensual pc (S/):</label>
+                      <input type="number" id="calc-inp-gasto" value="210.16" step="10" oninput="calcularGastoDesdeSoles()">
+                    </div>
+                    <div class="calc-col">
+                      <label for="calc-inp-lpt">Línea de Pobreza LPT (S/):</label>
+                      <input type="number" id="calc-inp-lpt" value="342.91" step="10" oninput="calcularGastoDesdeSoles()">
+                    </div>
+                  </div>
+                  <div class="calc-badge-res" id="calc-gasto-formula">
+                    Ratio: (S/ 210.16 &divide; S/ 342.91) &times; 100% = <strong>61.3%</strong>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <hr class="separator">
+
+            <!-- Variable 2: ICVS -->
+            <div class="input-group">
+              <div class="input-header">
+                <label for="slider-carencia" class="input-label">
+                  <strong>2. Carencias de Servicios y Vivienda (ICVS)</strong>
+                  <span class="label-formula">(0 = Óptimo, 9 = Extremo)</span>
+                </label>
+                <div class="input-value-badge" id="badge-carencia-val">8.0 pts</div>
+              </div>
+              <input type="range" id="slider-carencia" min="0" max="9" step="0.5" value="8.0" class="custom-range" oninput="actualizarInferencia()">
+              <div class="range-marks">
+                <span>0 (Sin privaciones)</span>
+                <span>4.5 (Moderado)</span>
+                <span>9 (Extremo)</span>
+              </div>
+
+              <!-- Membresías activas de Entrada 2 -->
+              <div class="membership-tags" id="tags-carencia">
+                <span class="mf-tag" data-tag="Bajo">Bajo: <strong>0.00</strong></span>
+                <span class="mf-tag" data-tag="Moderado">Moderado: <strong>0.00</strong></span>
+                <span class="mf-tag" data-tag="Severo">Severo: <strong>1.00</strong></span>
+              </div>
+
+              <!-- Gráfica SVG interactiva de Entrada 2 -->
+              <div class="chart-container mini-chart">
+                <svg id="svg-carencia" viewBox="0 0 360 80"></svg>
+              </div>
+
+              <!-- Selector rápido de privaciones ENAHO -->
+              <details class="privations-collapse">
+                <summary>Desglosar privaciones ENAHO (Checklist de carencias)</summary>
+                <div class="privations-checklist">
+                  <label><input type="checkbox" id="chk-piso" onchange="calcularIcvsDesdeChecks()"> Piso predominantemente de tierra (+1.0 pt)</label>
+                  <label><input type="checkbox" id="chk-hacinamiento" onchange="calcularIcvsDesdeChecks()"> Hacinamiento: &gt;3 personas/habitación (+1.0 pt)</label>
+                  <label><input type="checkbox" id="chk-luz" onchange="calcularIcvsDesdeChecks()"> Sin conexión eléctrica (+3.0 pts)</label>
+                  <label><input type="checkbox" id="chk-agua" onchange="calcularIcvsDesdeChecks()"> Sin agua de red pública (+1.0 pt)</label>
+                  <label><input type="checkbox" id="chk-saneamiento" onchange="calcularIcvsDesdeChecks()"> Saneamiento inadecuado (+1.0 pt)</label>
+                  <label><input type="checkbox" id="chk-combustible" onchange="calcularIcvsDesdeChecks()"> Cocina con leña o carbón (+1.0 pt)</label>
+                  <label><input type="checkbox" id="chk-internet" onchange="calcularIcvsDesdeChecks()"> Sin servicio de internet (+1.0 pt)</label>
+                </div>
+              </details>
+            </div>
+
+            <hr class="separator">
+
+            <!-- Variable 3: TD -->
+            <div class="input-group">
+              <div class="input-header">
+                <label for="slider-dep" class="input-label">
+                  <strong>3. Tasa de Dependencia Demográfica (TD)</strong>
+                  <span class="label-formula">(Menores + Mayores) / Miembros Activos</span>
+                </label>
+                <div class="input-value-badge" id="badge-dep-val">1.50</div>
+              </div>
+              <input type="range" id="slider-dep" min="0" max="3" step="0.05" value="1.50" class="custom-range" oninput="actualizarInferencia()">
+              <div class="range-marks">
+                <span>0.0 (Sin dependientes)</span>
+                <span>1.0 (1 dep / activo)</span>
+                <span>3.0 (Alta carga)</span>
+              </div>
+
+              <!-- Membresías activas de Entrada 3 -->
+              <div class="membership-tags" id="tags-dep">
+                <span class="mf-tag" data-tag="Baja">Baja: <strong>0.00</strong></span>
+                <span class="mf-tag" data-tag="Media">Media: <strong>0.00</strong></span>
+                <span class="mf-tag" data-tag="Alta">Alta: <strong>0.80</strong></span>
+              </div>
+
+              <!-- Gráfica SVG interactiva de Entrada 3 -->
+              <div class="chart-container mini-chart">
+                <svg id="svg-dep" viewBox="0 0 360 80"></svg>
+              </div>
+
+              <!-- Calculadora Demográfica Interactiva -->
+              <details class="privations-collapse">
+                <summary>Desglosar miembros del hogar (Calculadora demográfica)</summary>
+                <div class="inline-calc-box">
+                  <div class="calc-grid-3">
+                    <div class="calc-col">
+                      <label for="calc-inp-menores">Menores (&lt;15):</label>
+                      <input type="number" id="calc-inp-menores" value="3" min="0" max="15" oninput="calcularDesdePersonas()">
+                    </div>
+                    <div class="calc-col">
+                      <label for="calc-inp-mayores">Mayores (&ge;60):</label>
+                      <input type="number" id="calc-inp-mayores" value="0" min="0" max="10" oninput="calcularDesdePersonas()">
+                    </div>
+                    <div class="calc-col">
+                      <label for="calc-inp-activos">Activos (15-59):</label>
+                      <input type="number" id="calc-inp-activos" value="2" min="1" max="15" oninput="calcularDesdePersonas()">
+                    </div>
+                  </div>
+                  <div class="calc-badge-res" id="calc-dep-formula">
+                    Cálculo: (3 menores + 0 mayores) &divide; 2 activos = <strong>1.50 dependientes por activo</strong>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Gráfica de Salida y Reglas Disparadas -->
+        <div class="card simulator-output-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="icon-circle icon-output">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div>
+                <h3 class="card-title">2. Superficie Agregada y Desfuzificación</h3>
+                <p class="card-subtitle">T-Norma Min, S-Norma Max y Centroide de Gravedad (COG)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            
+            <!-- Output Defuzzification Curve Chart -->
+            <div class="defuzz-section">
+              <div class="defuzz-header">
+                <h4 class="section-subtitle">Curva Agregada del IVS &bull; Centroide Puro</h4>
+                <span class="defuzz-formula">COG: y* = &Sigma;(y &middot; &mu;<sub>agg</sub>) / &Sigma;(&mu;<sub>agg</sub>)</span>
+              </div>
+              <div class="chart-container large-chart">
+                <svg id="svg-salida" viewBox="0 0 520 180"></svg>
+              </div>
+              <div class="chart-legend">
+                <span class="leg-item"><span class="leg-box leg-baja"></span> Baja [0-30%]</span>
+                <span class="leg-item"><span class="leg-box leg-media"></span> Media [20-55%]</span>
+                <span class="leg-item"><span class="leg-box leg-alta"></span> Alta [45-80%]</span>
+                <span class="leg-item"><span class="leg-box leg-urgente"></span> Urgente [70-100%]</span>
+                <span class="leg-item"><span class="leg-line leg-cog"></span> Centroide (COG)</span>
+              </div>
+            </div>
+
+            <!-- Mini Tabla de Reglas Disparadas -->
+            <div class="rules-fired-section">
+              <div class="rules-header">
+                <h4 class="section-subtitle">Reglas Disparadas para este Hogar</h4>
+                <span class="rules-count-pill" id="rules-active-count-pill">2 activas</span>
+              </div>
+              <div class="rules-table-wrapper">
+                <table class="rules-table">
+                  <thead>
+                    <tr>
+                      <th>Regla</th>
+                      <th>Condición IF (Gasto &amp; Carencias &amp; Dependencia)</th>
+                      <th>Salida THEN</th>
+                      <th>Fuerza (&alpha;)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rules-tbody">
+                    <!-- Llenado dinámicamente por JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Matriz Completa de las 27 Reglas Difusas -->
+      <div class="card full-width-card mt-8">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="icon-circle icon-docs">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
+            </div>
+            <div>
+              <h3 class="card-title">Matriz Completa del Modelo Mamdani (27 Reglas)</h3>
+              <p class="card-subtitle">Combinaciones exhaustivas 3 &times; 3 &times; 3 con monitor en vivo de activación (&alpha; &gt; 0)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="rules-filter-bar full-filter-bar">
+            <input type="text" id="filter-rules-search" placeholder="Filtrar por texto (ej. Urgente, Severo, R05, Vulnerable)..." oninput="filtrarReglasSidebar()" class="sidebar-search-input">
+            <div class="filter-chips">
+              <button class="chip active" id="chip-todas" onclick="filtrarChip('TODAS')">Todas las Reglas (27)</button>
+              <button class="chip chip-active-only" id="chip-activas" onclick="filtrarChip('ACTIVAS')">Solo Activas (<span id="chip-activas-count">2</span>)</button>
+              <button class="chip" id="chip-urgente" onclick="filtrarChip('Urgente')">Urgente</button>
+              <button class="chip" id="chip-alta" onclick="filtrarChip('Alta')">Alta</button>
+              <button class="chip" id="chip-media" onclick="filtrarChip('Media')">Media</button>
+              <button class="chip" id="chip-baja" onclick="filtrarChip('Baja')">Baja</button>
+            </div>
+          </div>
+
+          <div class="rules-grid-full" id="sidebar-rules-list">
+            <!-- Se llena dinámicamente con las 27 reglas -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 4: SISTEMA EXPERTO BASADO EN REGLAS (CLIPS)
+       ========================================================================= -->
+  <section class="landing-section" id="sistema-experto">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">MOTOR SIMBÓLICO OFICIAL</span>
+        <h2 class="section-title">Sistema Experto Basado en Reglas (CLIPS / 30 Reglas)</h2>
+        <p class="section-lead">
+          Encadenamiento hacia adelante (Forward Chaining) en 3 capas jerárquicas con control de salience. Inspeccione los hechos assertados en la Memoria de Trabajo del hogar evaluado.
+        </p>
+      </div>
+
+      <!-- Memoria de Trabajo en Tiempo Real (Terminal) -->
+      <div class="expert-wm-box">
+        <div class="expert-wm-header">
+          <div class="wm-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span class="wm-title">Memoria de Trabajo Activa (CLIPS Working Memory Facts):</span>
+          </div>
+          <span class="wm-badge">Live Asserted Facts</span>
+        </div>
+        <div class="expert-facts-terminal" id="expert-wm-facts">
+          <!-- Hechos assertados en tiempo real por app.js -->
+        </div>
+      </div>
+
+      <!-- Tres Capas de Razonamiento del CLP -->
+      <div class="expert-layers-grid">
+        
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa1">
+            <span class="layer-tag">CAPA 1 (Salience 100)</span>
+            <h4>Derivación de Hechos Primarios</h4>
+          </div>
+          <p class="layer-desc">Infiere tramos de gasto monetario (R01-R03), dependencia demográfica (R04-R06) y condición de hacinamiento (R07-R08).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R01-tramo-bajo-lpe</code>: Gasto &lt; LPE &rarr; (hecho tramo bajo-lpe)</div>
+            <div class="exp-rule-item"><code>R02-tramo-entre-lpe-lpt</code>: LPE &le; Gasto &lt; LPT &rarr; (hecho tramo entre)</div>
+            <div class="exp-rule-item"><code>R03-tramo-sobre-lpt</code>: Gasto &ge; LPT &rarr; (hecho tramo sobre)</div>
+            <div class="exp-rule-item"><code>R04-dependencia-alta</code>: Dependientes &gt; Activos &rarr; (hecho dependencia alta)</div>
+            <div class="exp-rule-item"><code>R07-hacinamiento-si</code>: Personas/Cuarto &gt; 3 &rarr; (hecho hacinamiento si)</div>
+          </div>
+        </div>
+
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa2">
+            <span class="layer-tag">CAPA 2 (Salience 50 / 45)</span>
+            <h4>Detección de Privaciones INEI</h4>
+          </div>
+          <p class="layer-desc">Evalúa privaciones directas (R09-R18) y privaciones encadenadas de segundo orden: menores expuestos (R19) y adultos mayores (R20).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R09-habitabilidad-critica</code>: Hacinamiento + Piso tierra &rarr; (peso 3)</div>
+            <div class="exp-rule-item"><code>R12-sin-electricidad</code>: Sin servicio eléctrico &rarr; (peso 3)</div>
+            <div class="exp-rule-item"><code>R15-sin-agua-red</code>: Agua de pozo, río o cisterna &rarr; (peso 1)</div>
+            <div class="exp-rule-item"><code>R16-saneamiento-inadecuado</code>: Letrina o pozo ciego &rarr; (peso 1)</div>
+            <div class="exp-rule-item"><code>R19-menores-expuestos</code>: Menores en riesgo sanitario &rarr; (peso 1)</div>
+          </div>
+        </div>
+
+        <div class="expert-layer-card">
+          <div class="layer-header layer-capa3">
+            <span class="layer-tag">CAPA 3 (Salience 40 a 10)</span>
+            <h4>Dictamen CSE y Alertas Sociales</h4>
+          </div>
+          <p class="layer-desc">Calcula puntaje acumulado (R24), emite dictamen CSE monetario (R21-R23) y genera alertas de exclusión o atención (R28-R30).</p>
+          <div class="layer-rules-list">
+            <div class="exp-rule-item"><code>R21-pobreza-extrema</code>: Bajo LPE &rarr; Dictamen Pobreza Extrema</div>
+            <div class="exp-rule-item"><code>R23-no-pobre</code>: Sobre LPT &rarr; Dictamen No Pobre</div>
+            <div class="exp-rule-item"><code>R28-alerta-atencion</code>: Pobre Extremo + Privación Alta &rarr; Prioritario</div>
+            <div class="exp-rule-item"><code>R30-alerta-revision</code>: No Pobre + Privación Alta &rarr; Posible Exclusión</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de Descarga del Código CLIPS -->
+      <div class="expert-source-action">
+        <div class="action-text">
+          <strong>Archivo de Producción CLIPS:</strong>
+          <span>Contiene las 30 reglas formales con defrules, salience, defglobal y definstances.</span>
+        </div>
+        <a href="cse_sistema_experto.clp" download class="btn-clips-download">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar cse_sistema_experto.clp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 5: AUDITORÍA Y DICTAMEN SOCIAL OFICIAL
+       ========================================================================= -->
+  <section class="landing-section section-elevated" id="auditoria">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">TRAZABILIDAD Y FISCALIZACIÓN</span>
+        <h2 class="section-title">Módulo de Auditoría y Dictamen Social Oficial</h2>
+        <p class="section-lead">
+          Expediente técnico con certificación dual para auditorías públicas, expedientes de hogares del SISFOH y sustentación ante el MIDIS.
+        </p>
+      </div>
+
+      <div class="card full-width-card">
+        <div class="card-body">
+          <div class="audit-toolbar">
+            <div class="audit-toolbar-info">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Traza técnica completa generada automáticamente con marcas de tiempo y resolución de paradoja:</span>
+            </div>
+            <div class="audit-actions-group">
+              <span class="audit-status-tag" id="audit-copy-status"></span>
+              <button class="btn btn-primary btn-sm" onclick="copiarInforme()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Copiar Informe al Portapapeles
+              </button>
+            </div>
+          </div>
+          
+          <pre class="audit-preview full-audit" id="audit-text-preview"></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 6: MARCO TEÓRICO & METODOLÓGICO
+       ========================================================================= -->
+  <section class="landing-section" id="teoria">
+    <div class="section-container">
+      
+      <div class="section-header-center">
+        <span class="section-eyebrow">FUNDAMENTOS ACADÉMICOS</span>
+        <h2 class="section-title">Marco Teórico y Fundamentos Metodológicos</h2>
+        <p class="section-lead">
+          Epistemología comparativa: Lógica Booleana frente a Lógica Difusa y alineamiento estratégico a la Agenda 2030.
+        </p>
+      </div>
+
+      <div class="docs-grid-three">
+        
+        <div class="doc-card">
+          <div class="doc-card-badge">ODS 1: AGENDA 2030</div>
+          <h3 class="doc-title">1. Alineamiento al ODS 1: Fin de la Pobreza</h3>
+          <p>
+            El Objetivo de Desarrollo Sostenible 1 busca erradicar la pobreza en todas sus formas para el año 2030. La <strong>Meta 1.2</strong> exige reducir al menos a la mitad la proporción de personas de todas las edades que viven en la pobreza en todas sus dimensiones. La <strong>Meta 1.3</strong> insta a implementar sistemas y medidas apropiadas de protección social con amplia cobertura de los pobres y los vulnerables.
+          </p>
+          <p>
+            Los clasificadores binarios tradicionales sufren del <em>efecto acantilado</em> (una variación marginal de centavos cambia bruscamente el estatus de un hogar). Este sistema difuso resuelve ese problema asignando una prioridad continua, gradual y equitativa.
+          </p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card-badge">MODELADO MATEMÁTICO</div>
+          <h3 class="doc-title">2. Dispositivo de Inferencia Mamdani</h3>
+          <ul class="doc-list">
+            <li><strong>Fusificación:</strong> Funciones triangulares <code>trimf(x; a, b, c)</code> y trapezoidales <code>trapmf(x; a, b, c, d)</code> continuas.</li>
+            <li><strong>T-Norma (AND):</strong> Operador Mínimo: &alpha;<sub>k</sub> = min(&mu;<sub>1</sub>, &mu;<sub>2</sub>, &mu;<sub>3</sub>).</li>
+            <li><strong>Implicación:</strong> Mínimo de Mamdani: min(&alpha;<sub>k</sub>, &mu;<sub>out</sub>).</li>
+            <li><strong>S-Norma (OR / Agregación):</strong> Operador Máximo: &mu;<sub>agg</sub>(y) = max(&mu;'<sub>k</sub>(y)).</li>
+            <li><strong>Desfuzificación por Centroide (COG):</strong> Cálculo exacto del baricentro continuo: y* = &int; y &middot; &mu;<sub>agg</sub>(y) dy / &int; &mu;<sub>agg</sub>(y) dy.</li>
+          </ul>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card-badge">JUSTICIA DISTRIBUTIVA</div>
+          <h3 class="doc-title">3. Paradoja Multidimensional (Caso 4)</h3>
+          <p>
+            El Caso 4 expone un hogar con gasto per cápita de <strong>S/ 668.36</strong> frente a una línea de <strong>S/ 373.46</strong> (178.9% de cobertura). Bajo el modelo monetario rígido tradicional, es catalogado como "No Pobre".
+          </p>
+          <p>
+            Sin embargo, al habitar en piso de tierra sin luz ni agua y con 3 niños a su cargo, el sistema difuso Mamdani detecta su privación estructural oculta y le otorga un <strong>IVS del 62.5% (Prioridad Alta)</strong>, garantizándole acompañamiento social de oficio y evitando su abandono institucional.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PIE DE PÁGINA (FOOTER INSTITUCIONAL)
+       ========================================================================= -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-badge-pill">
+            <span class="badge-dot-live"></span>
+            <span>ODS 1: Fin de la Pobreza</span>
+          </div>
+          <h3 class="footer-title">Sistemas Inteligentes: Observatorio Socioeconómico</h3>
+          <p class="footer-desc">
+            Desarrollado para el curso de <strong>Sistemas Inteligentes</strong> &bull; Facultad de Ingeniería de Sistemas e Informática (FISI) &bull; Universidad Nacional Mayor de San Marcos.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Recursos del Proyecto</h4>
+          <ul>
+            <li><a href="sistema_difuso_pobreza_ods1.ipynb" download>Cuaderno Google Colab (.ipynb)</a></li>
+            <li><a href="cse_sistema_experto.clp" download>Código Fuente CLIPS (.clp)</a></li>
+            <li><a href="https://github.com/EdsonPerez7/SistemasInteligentes" target="_blank" rel="noopener">Repositorio en GitHub</a></li>
+            <li><a href="https://sistemasinteligentes-unmsm.pages.dev" target="_blank" rel="noopener">Despliegue Cloudflare Pages</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#hero">Inicio / Presets</a></li>
+            <li><a href="#comparativa">Comparativa Dual</a></li>
+            <li><a href="#sistema-difuso">Simulador Difuso</a></li>
+            <li><a href="#sistema-experto">Sistema Experto</a></li>
+            <li><a href="#auditoria">Auditoría MIDIS</a></li>
+            <li><a href="#teoria">Marco Teórico</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Universidad Nacional Mayor de San Marcos &bull; FISI &bull; Todos los derechos reservados.</p>
+        <p class="footer-subtext">Diseñado para la investigación y la optimización de políticas públicas de focalización social.</p>
+      </div>
+
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>
