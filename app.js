@@ -499,8 +499,10 @@ function evaluarSistemaExperto(rGasto, icvs, td, casoActual) {
     dictamen,
     dictamenRegla,
     tramo,
+    tramoRegla,
     tramoLabel,
     depAtr,
+    depRegla,
     depLabel,
     privScore,
     vulAtr,
@@ -582,10 +584,10 @@ function actualizarInferencia() {
   if (compClipsEl) compClipsEl.textContent = `${expRes.dictamen}`;
 
   const expTramoEl = document.getElementById('exp-fact-tramo');
-  if (expTramoEl) expTramoEl.textContent = `${expRes.tramoLabel} (${expRes.tramoRegla})`;
+  if (expTramoEl) expTramoEl.textContent = expRes.tramoLabel;
 
   const expDepEl = document.getElementById('exp-fact-dep');
-  if (expDepEl) expDepEl.textContent = `${expRes.depLabel} (${expRes.depRegla})`;
+  if (expDepEl) expDepEl.textContent = expRes.depLabel;
 
   const expPrivEl = document.getElementById('exp-fact-priv');
   if (expPrivEl) expPrivEl.textContent = `${expRes.privScore} / 9 pts (Vuln: ${expRes.vulAtr.toUpperCase()})`;
