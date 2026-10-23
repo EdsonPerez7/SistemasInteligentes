@@ -298,7 +298,7 @@
 
           <div class="eval-status-box">
             <div class="eval-status-row-top">
-              <span class="eval-status-label">Índice IVS (Centroide COG):</span>
+              <span class="eval-status-label">Índice de Vulnerabilidad Socioeconómica (IVS):</span>
               <div class="eval-status-val eval-fuzzy-val">
                 <span class="metric-number-inline" id="out-ivs-val">87.0%</span>
                 <span class="category-badge badge-urgente" id="out-category-badge">Urgente</span>
@@ -339,8 +339,8 @@
 
       </div>
 
-      <!-- Banner de la Paradoja Multidimensional -->
-      <div class="paradox-callout-box">
+      <!-- Banner de la Paradoja Multidimensional (Visible únicamente en Caso 4) -->
+      <div class="paradox-callout-box" id="paradox-callout-box" style="display: none;">
         <div class="paradox-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
@@ -530,7 +530,7 @@
 
               <!-- Gráfica SVG interactiva de Entrada 1 -->
               <div class="chart-container mini-chart">
-                <svg id="svg-gasto" viewBox="0 0 360 80"></svg>
+                <svg id="svg-gasto" viewBox="0 0 360 135"></svg>
               </div>
 
               <!-- Calculadora Monetaria Rápida (Soles a %) -->
@@ -581,7 +581,7 @@
 
               <!-- Gráfica SVG interactiva de Entrada 2 -->
               <div class="chart-container mini-chart">
-                <svg id="svg-carencia" viewBox="0 0 360 80"></svg>
+                <svg id="svg-carencia" viewBox="0 0 360 135"></svg>
               </div>
 
               <!-- Selector rápido de privaciones ENAHO -->
@@ -626,7 +626,7 @@
 
               <!-- Gráfica SVG interactiva de Entrada 3 -->
               <div class="chart-container mini-chart">
-                <svg id="svg-dep" viewBox="0 0 360 80"></svg>
+                <svg id="svg-dep" viewBox="0 0 360 135"></svg>
               </div>
 
               <!-- Calculadora Demográfica Interactiva -->
@@ -677,7 +677,7 @@
             <div class="simulator-verdict-box">
               <div class="verdict-top-row">
                 <div class="verdict-main-meta">
-                  <span class="verdict-label">Índice IVS (Centroide COG):</span>
+                  <span class="verdict-label">Índice de Vulnerabilidad Socioeconómica (IVS):</span>
                   <div class="verdict-val-group">
                     <span class="verdict-num" id="sim-ivs-val">87.0%</span>
                     <span class="category-badge badge-urgente" id="sim-category-badge">Urgente</span>
@@ -706,7 +706,7 @@
                 <span class="defuzz-formula">COG: y* = &Sigma;(y &middot; &mu;<sub>agg</sub>) / &Sigma;(&mu;<sub>agg</sub>)</span>
               </div>
               <div class="chart-container large-chart">
-                <svg id="svg-salida" viewBox="0 0 520 180"></svg>
+                <svg id="svg-salida" viewBox="0 0 520 200"></svg>
               </div>
               <div class="chart-legend">
                 <span class="leg-item"><span class="leg-box leg-baja"></span> Baja [0-30%]</span>

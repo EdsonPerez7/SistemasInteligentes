@@ -1024,7 +1024,6 @@ body {
   margin-bottom: 4px;
 }
 
-/* Banner Paradoja Multidimensional */
 .paradox-callout-box {
   background: #faf5ff;
   border: 1px solid #e9d5ff;
@@ -1034,6 +1033,18 @@ body {
   align-items: flex-start;
   gap: 18px;
   box-shadow: var(--shadow-sm);
+  animation: fadeInBox 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInBox {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .paradox-icon {
@@ -1169,14 +1180,28 @@ body {
   font-size: 0.76rem;
   background: #f1f5f9;
   border: 1px solid var(--border-color);
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
   color: var(--text-muted);
+  transition: all 0.2s ease;
 }
 
 .mf-tag strong {
   color: var(--text-main);
   font-family: var(--font-mono);
+}
+
+.mf-tag.active {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.16);
+}
+
+.mf-tag.active strong {
+  color: #047857;
+  font-weight: 800;
 }
 
 .chart-container {
@@ -1189,11 +1214,11 @@ body {
 }
 
 .mini-chart {
-  height: 80px;
+  height: 135px;
 }
 
 .large-chart {
-  height: 180px;
+  height: 205px;
   background: #ffffff;
 }
 
@@ -1332,11 +1357,10 @@ body {
 }
 
 .verdict-label {
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
 .verdict-val-group {

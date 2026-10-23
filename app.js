@@ -254,8 +254,8 @@ function dibujarMiniChart(svgId, dominio, funciones, valorActual, colorLínea) {
   if (!svg) return;
 
   const w = 360;
-  const h = 80;
-  const pad = { top: 10, right: 12, bottom: 20, left: 12 };
+  const h = 135;
+  const pad = { top: 18, right: 16, bottom: 26, left: 38 };
   const plotW = w - pad.left - pad.right;
   const plotH = h - pad.top - pad.bottom;
 
@@ -263,9 +263,76 @@ function dibujarMiniChart(svgId, dominio, funciones, valorActual, colorLínea) {
   const scaleX = (x) => pad.left + ((x - xMin) / (xMax - xMin)) * plotW;
   const scaleY = (y) => pad.top + (1 - y) * plotH;
 
-  let paths = '';
+  // 1. Grid horizontal y Eje Y con escala [0, 1]
+  const yAxisSvg = `
+    <!-- Eje Y -->
+    <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${h - pad.bottom}" stroke="#94a3b8" stroke-width="1.2" />
 
-  // Dibujar curvas de membresía
+    <!-- 1.0 -->
+    <line x1="${pad.left - 4}" y1="${scaleY(1).toFixed(1)}" x2="${pad.left}" y2="${scaleY(1).toFixed(1)}" stroke="#94a3b8" stroke-width="1" />
+    <text x="${pad.left - 6}" y="${(scaleY(1) + 3.5).toFixed(1)}" text-anchor="end" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#64748b">1.0</text>
+    <line x1="${pad.left}" y1="${scaleY(1).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(1).toFixed(1)}" stroke="#f1f5f9" stroke-width="0.8" stroke-dasharray="2,2" />
+
+    <!-- 0.5 -->
+    <line x1="${pad.left - 3}" y1="${scaleY(0.5).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0.5).toFixed(1)}" stroke="#94a3b8" stroke-width="1" />
+    <text x="${pad.left - 6}" y="${(scaleY(0.5) + 3.5).toFixed(1)}" text-anchor="end" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#64748b">0.5</text>
+    <line x1="${pad.left}" y1="${scaleY(0.5).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(0.5).toFixed(1)}" stroke="#f1f5f9" stroke-width="0.8" stroke-dasharray="2,2" />
+
+    <!-- 0.0 -->
+    <line x1="${pad.left - 4}" y1="${scaleY(0).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0).toFixed(1)}" stroke="#94a3b8" stroke-width="1" />
+    <text x="${pad.left - 6}" y="${(scaleY(0) + 3.5).toFixed(1)}" text-anchor="end" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#64748b">0.0</text>
+
+    <!-- Indicador eje Y: mu -->
+    <text x="${pad.left - 4}" y="${pad.top - 6}" text-anchor="end" font-size="9.5" font-weight="700" font-family="'JetBrains Mono', monospace" fill="#0284c7">&mu;</text>
+
+    <!-- Eje X base -->
+    <line x1="${pad.left}" y1="${h - pad.bottom}" x2="${w - pad.right}" y2="${h - pad.bottom}" stroke="#94a3b8" stroke-width="1.2" />
+  `;
+
+  // 2. Ticks y etiquetas del Eje X según dominio de la variable
+  let ticks = [];
+  if (svgId === 'svg-gasto') {
+    ticks = [
+      { v: 0, l: '0%' },
+      { v: 50, l: '50%' },
+      { v: 100, l: '100%' },
+      { v: 150, l: '150%' },
+      { v: 200, l: '200%' },
+      { v: 250, l: '250%' }
+    ];
+  } else if (svgId === 'svg-carencia') {
+    ticks = [
+      { v: 0, l: '0' },
+      { v: 2, l: '2' },
+      { v: 4, l: '4' },
+      { v: 6, l: '6' },
+      { v: 8, l: '8' },
+      { v: 9, l: '9 pts' }
+    ];
+  } else if (svgId === 'svg-dep') {
+    ticks = [
+      { v: 0, l: '0' },
+      { v: 0.5, l: '0.5' },
+      { v: 1.0, l: '1.0' },
+      { v: 1.5, l: '1.5' },
+      { v: 2.0, l: '2.0' },
+      { v: 2.5, l: '2.5' },
+      { v: 3.0, l: '3.0' }
+    ];
+  }
+
+  let xAxisSvg = '';
+  ticks.forEach((t) => {
+    const px = scaleX(t.v).toFixed(1);
+    const anchor = t.v === xMin ? 'start' : (t.v === xMax ? 'end' : 'middle');
+    xAxisSvg += `
+      <line x1="${px}" y1="${h - pad.bottom}" x2="${px}" y2="${h - pad.bottom + 4}" stroke="#94a3b8" stroke-width="1" />
+      <text x="${px}" y="${h - pad.bottom + 15}" text-anchor="${anchor}" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#64748b">${t.l}</text>
+    `;
+  });
+
+  // 3. Dibujar curvas de membresía
+  let paths = '';
   Object.keys(funciones).forEach((tag) => {
     const fn = funciones[tag];
     let d = '';
@@ -277,20 +344,17 @@ function dibujarMiniChart(svgId, dominio, funciones, valorActual, colorLínea) {
       const py = scaleY(y).toFixed(1);
       d += (i === 0) ? `M ${px} ${py}` : ` L ${px} ${py}`;
     }
-    paths += `<path d="${d}" fill="none" stroke="${colorLínea[tag]}" stroke-width="1.8" opacity="0.85" />`;
+    paths += `<path d="${d}" fill="none" stroke="${colorLínea[tag]}" stroke-width="2.2" opacity="0.92" />`;
   });
 
-  // Línea vertical del valor actual
+  // 4. Línea vertical del valor actual
   const curX = scaleX(Math.max(xMin, Math.min(xMax, valorActual))).toFixed(1);
   const vLine = `
     <line x1="${curX}" y1="${pad.top}" x2="${curX}" y2="${h - pad.bottom}" stroke="#0f172a" stroke-width="2" stroke-dasharray="3,2" />
-    <circle cx="${curX}" cy="${scaleY(0.5)}" r="3.5" fill="#059669" />
+    <circle cx="${curX}" cy="${scaleY(0.5).toFixed(1)}" r="4" fill="#059669" />
   `;
 
-  // Eje base
-  const axis = `<line x1="${pad.left}" y1="${h - pad.bottom}" x2="${w - pad.right}" y2="${h - pad.bottom}" stroke="#cbd5e1" stroke-width="1.5" />`;
-
-  svg.innerHTML = axis + paths + vLine;
+  svg.innerHTML = yAxisSvg + xAxisSvg + paths + vLine;
 }
 
 function dibujarChartSalida(svgId, U_SALIDA, muAgg, centroidVal) {
@@ -298,15 +362,69 @@ function dibujarChartSalida(svgId, U_SALIDA, muAgg, centroidVal) {
   if (!svg) return;
 
   const w = 520;
-  const h = 180;
-  const pad = { top: 15, right: 20, bottom: 25, left: 20 };
+  const h = 200;
+  const pad = { top: 22, right: 24, bottom: 38, left: 46 };
   const plotW = w - pad.left - pad.right;
   const plotH = h - pad.top - pad.bottom;
 
   const scaleX = (x) => pad.left + (x / 100) * plotW;
   const scaleY = (y) => pad.top + (1 - y) * plotH;
 
-  // 1. Curvas de referencia en trazos punteados (colores contrastados en blanco)
+  // 1. Grid y Eje Y con números
+  let yAxisSvg = `
+    <!-- Eje Y -->
+    <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${h - pad.bottom}" stroke="#94a3b8" stroke-width="1.2" />
+
+    <!-- 1.0 -->
+    <line x1="${pad.left - 5}" y1="${scaleY(1).toFixed(1)}" x2="${pad.left}" y2="${scaleY(1).toFixed(1)}" stroke="#94a3b8" stroke-width="1.2" />
+    <text x="${pad.left - 7}" y="${(scaleY(1) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="'JetBrains Mono', monospace" fill="#64748b">1.0</text>
+    <line x1="${pad.left}" y1="${scaleY(1).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(1).toFixed(1)}" stroke="#e2e8f0" stroke-width="0.8" stroke-dasharray="3,3" />
+
+    <!-- 0.75 -->
+    <line x1="${pad.left - 3}" y1="${scaleY(0.75).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0.75).toFixed(1)}" stroke="#cbd5e1" stroke-width="1" />
+    <text x="${pad.left - 7}" y="${(scaleY(0.75) + 3.5).toFixed(1)}" text-anchor="end" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#94a3b8">0.75</text>
+    <line x1="${pad.left}" y1="${scaleY(0.75).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(0.75).toFixed(1)}" stroke="#f1f5f9" stroke-width="0.8" stroke-dasharray="2,2" />
+
+    <!-- 0.50 -->
+    <line x1="${pad.left - 5}" y1="${scaleY(0.5).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0.5).toFixed(1)}" stroke="#94a3b8" stroke-width="1.2" />
+    <text x="${pad.left - 7}" y="${(scaleY(0.5) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="'JetBrains Mono', monospace" fill="#64748b">0.50</text>
+    <line x1="${pad.left}" y1="${scaleY(0.5).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(0.5).toFixed(1)}" stroke="#e2e8f0" stroke-width="0.8" stroke-dasharray="3,3" />
+
+    <!-- 0.25 -->
+    <line x1="${pad.left - 3}" y1="${scaleY(0.25).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0.25).toFixed(1)}" stroke="#cbd5e1" stroke-width="1" />
+    <text x="${pad.left - 7}" y="${(scaleY(0.25) + 3.5).toFixed(1)}" text-anchor="end" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#94a3b8">0.25</text>
+    <line x1="${pad.left}" y1="${scaleY(0.25).toFixed(1)}" x2="${w - pad.right}" y2="${scaleY(0.25).toFixed(1)}" stroke="#f1f5f9" stroke-width="0.8" stroke-dasharray="2,2" />
+
+    <!-- 0.0 -->
+    <line x1="${pad.left - 5}" y1="${scaleY(0).toFixed(1)}" x2="${pad.left}" y2="${scaleY(0).toFixed(1)}" stroke="#94a3b8" stroke-width="1.2" />
+    <text x="${pad.left - 7}" y="${(scaleY(0) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-family="'JetBrains Mono', monospace" fill="#64748b">0.0</text>
+
+    <!-- Título eje Y: mu -->
+    <text x="${pad.left - 6}" y="${pad.top - 6}" text-anchor="end" font-size="10" font-weight="700" font-family="'JetBrains Mono', monospace" fill="#0284c7">&mu;</text>
+
+    <!-- Eje X base -->
+    <line x1="${pad.left}" y1="${h - pad.bottom}" x2="${w - pad.right}" y2="${h - pad.bottom}" stroke="#94a3b8" stroke-width="1.2" />
+  `;
+
+  // 2. Ticks y etiquetas del Eje X (0% a 100%)
+  let xAxisSvg = '';
+  for (let pct = 0; pct <= 100; pct += 10) {
+    const px = scaleX(pct).toFixed(1);
+    const isMajor = pct % 20 === 0;
+    const tickLen = isMajor ? 5 : 3;
+    const strokeColor = isMajor ? '#94a3b8' : '#cbd5e1';
+    xAxisSvg += `<line x1="${px}" y1="${h - pad.bottom}" x2="${px}" y2="${h - pad.bottom + tickLen}" stroke="${strokeColor}" stroke-width="1" />`;
+
+    if (isMajor) {
+      const anchor = pct === 0 ? 'start' : (pct === 100 ? 'end' : 'middle');
+      xAxisSvg += `<text x="${px}" y="${h - pad.bottom + 16}" text-anchor="${anchor}" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="600" fill="#64748b">${pct}%</text>`;
+    }
+  }
+
+  // Título explicativo del Eje X
+  xAxisSvg += `<text x="${(pad.left + plotW / 2).toFixed(1)}" y="${h - 4}" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">Índice IVS (%) &bull; Vulnerabilidad Socioeconómica</text>`;
+
+  // 3. Curvas de referencia en trazos punteados
   const refColors = {
     Baja: '#2563eb',
     Media: '#059669',
@@ -329,7 +447,7 @@ function dibujarChartSalida(svgId, U_SALIDA, muAgg, centroidVal) {
     refPaths += `<path d="${d}" fill="none" stroke="${refColors[tag]}" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.45" />`;
   });
 
-  // 2. Área agregada muAgg
+  // 4. Área agregada muAgg
   let areaD = `M ${scaleX(0).toFixed(1)} ${scaleY(0).toFixed(1)}`;
   for (let i = 0; i < U_SALIDA.length; i++) {
     const px = scaleX(U_SALIDA[i]).toFixed(1);
@@ -350,18 +468,17 @@ function dibujarChartSalida(svgId, U_SALIDA, muAgg, centroidVal) {
     <path d="${areaD}" fill="url(#aggGrad)" stroke="#0f172a" stroke-width="1.8" />
   `;
 
-  // 3. Línea vertical del Centroide
+  // 5. Línea vertical del Centroide con badge IVS
   const cX = scaleX(centroidVal).toFixed(1);
+  const badgeX = Math.min(w - pad.right - 80, Math.max(pad.left + 2, Number(cX) - 40));
   const cogMarker = `
     <line x1="${cX}" y1="${pad.top}" x2="${cX}" y2="${h - pad.bottom}" stroke="#0f172a" stroke-width="2.5" />
     <polygon points="${cX - 5},${pad.top} ${Number(cX) + 5},${pad.top} ${cX},${pad.top + 8}" fill="#0f172a" />
-    <text x="${Math.min(w - 75, Math.max(25, Number(cX) - 20))}" y="${pad.top + 20}" fill="#0f172a" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">COG: ${centroidVal.toFixed(1)}%</text>
+    <rect x="${badgeX}" y="${pad.top + 6}" width="80" height="20" rx="4" fill="rgba(15, 23, 42, 0.9)" />
+    <text x="${badgeX + 40}" y="${pad.top + 20}" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="700" text-anchor="middle">IVS: ${centroidVal.toFixed(1)}%</text>
   `;
 
-  // Eje X
-  const axis = `<line x1="${pad.left}" y1="${h - pad.bottom}" x2="${w - pad.right}" y2="${h - pad.bottom}" stroke="#cbd5e1" stroke-width="1.5" />`;
-
-  svg.innerHTML = axis + refPaths + aggFill + cogMarker;
+  svg.innerHTML = yAxisSvg + xAxisSvg + refPaths + aggFill + cogMarker;
 }
 
 // =============================================================================
@@ -647,6 +764,16 @@ function actualizarInferencia() {
 
   renderizarReglasSidebar(res.activas);
   actualizarInformeAuditoria(res, expRes, rGasto, icvs, td);
+
+  // Mostrar u ocultar el banner de la Paradoja Multidimensional (solo relevante en Caso 4)
+  const paradoxBox = document.getElementById('paradox-callout-box');
+  if (paradoxBox) {
+    const esCaso4 = (casoSeleccionadoActual === 4 && 
+                     Math.abs(rGasto - CASOS[4].gasto) < 0.5 && 
+                     Math.abs(icvs - CASOS[4].carencia) < 0.5 && 
+                     Math.abs(td - CASOS[4].dep) < 0.05);
+    paradoxBox.style.display = esCaso4 ? 'flex' : 'none';
+  }
 }
 
 function actualizarPipelineExperto(expRes) {
@@ -695,7 +822,7 @@ function actualizarTags(containerId, muObj) {
     const key = tagEl.getAttribute('data-tag');
     const val = muObj[key] || 0.0;
     tagEl.innerHTML = `${key}: <strong>${val.toFixed(2)}</strong>`;
-    if (val > 0.05) {
+    if (val > 0.001) {
       tagEl.classList.add('active');
     } else {
       tagEl.classList.remove('active');
@@ -973,7 +1100,7 @@ function actualizarInformeAuditoria(res, expRes, rGasto, icvs, td) {
     `  POLÍTICA RÍGIDA ASIGNADA             : ${expRes ? expRes.policyExpert.replace(/<[^>]*>?/gm, '') : ''}`,
     "--------------------------------------------------------------------",
     "PARADIGMA 2: SISTEMA DE INFERENCIA DIFUSA (MAMDANI / LÓGICA CONTINUA)",
-    `  ÍNDICE DE VULNERABILIDAD SOCIAL (IVS): ${res.ivs.toFixed(2)}% (Centroide COG)`,
+    `  ÍNDICE DE VULNERABILIDAD SOCIOECONÓMICA (IVS): ${res.ivs.toFixed(2)}%`,
     `  CATEGORÍA DE PRIORIZACIÓN            : ${res.categoria}`,
     `  REGLAS MAMDANI DISPARADAS            : ${res.activas.length} activas`,
     ...res.activas.map((a) => 
