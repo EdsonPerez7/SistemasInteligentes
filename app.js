@@ -539,21 +539,32 @@ function actualizarInferencia() {
   actualizarTags('tags-carencia', res.muC);
   actualizarTags('tags-dep', res.muD);
 
-  // Actualizar métricas del hero banner / tarjeta dual difusa
+  // Actualizar métricas del hero banner / tarjeta dual difusa y del simulador
   const ivsValEl = document.getElementById('out-ivs-val');
   if (ivsValEl) ivsValEl.textContent = `${res.ivs.toFixed(1)}%`;
+  const simIvsValEl = document.getElementById('sim-ivs-val');
+  if (simIvsValEl) simIvsValEl.textContent = `${res.ivs.toFixed(1)}%`;
 
   const cogRawEl = document.getElementById('out-cog-raw');
   if (cogRawEl) cogRawEl.textContent = `${res.cogRaw.toFixed(1)}%`;
+  const simCogRawEl = document.getElementById('sim-cog-raw');
+  if (simCogRawEl) simCogRawEl.textContent = `${res.cogRaw.toFixed(1)}%`;
   
   const catBadge = document.getElementById('out-category-badge');
   if (catBadge) {
     catBadge.textContent = res.categoria;
     catBadge.className = `category-badge ${res.badgeClass}`;
   }
+  const simCatBadge = document.getElementById('sim-category-badge');
+  if (simCatBadge) {
+    simCatBadge.textContent = res.categoria;
+    simCatBadge.className = `category-badge ${res.badgeClass}`;
+  }
 
   const policyEl = document.getElementById('out-policy-text');
   if (policyEl) policyEl.innerHTML = res.politica;
+  const simPolicyEl = document.getElementById('sim-policy-text');
+  if (simPolicyEl) simPolicyEl.innerHTML = res.politica;
 
   // Actualizar detalles difusos en la tarjeta dual
   const fuzzyGastoEl = document.getElementById('fuzzy-eval-gasto');
@@ -604,9 +615,20 @@ function actualizarInferencia() {
     wmTerminal.innerHTML = expRes.facts.map(f => `<div class="fact-line">&rarr; ${f}</div>`).join('');
   }
 
-  // Comparativa difusa
+  // Comparativa difusa y barra de progreso continuo
   const compEl = document.getElementById('comp-fuzzy-val');
   if (compEl) compEl.textContent = `IVS (Centroide): ${res.ivs.toFixed(1)}% • ${res.categoria}`;
+  const progressFill = document.getElementById('comp-ivs-progress-fill');
+  if (progressFill) {
+    progressFill.style.width = `${Math.min(100, Math.max(0, res.ivs)).toFixed(1)}%`;
+  }
+  const simProgressFill = document.getElementById('sim-ivs-progress-fill');
+  if (simProgressFill) {
+    simProgressFill.style.width = `${Math.min(100, Math.max(0, res.ivs)).toFixed(1)}%`;
+  }
+
+  // Actualizar pipeline visual del Sistema Experto
+  actualizarPipelineExperto(expRes);
 
   // Actualizar tabla de reglas disparadas
   actualizarTablaReglas(res.activas);
@@ -625,6 +647,44 @@ function actualizarInferencia() {
 
   renderizarReglasSidebar(res.activas);
   actualizarInformeAuditoria(res, expRes, rGasto, icvs, td);
+}
+
+function actualizarPipelineExperto(expRes) {
+  const activas = new Set();
+  if (expRes.tramoRegla) activas.add(expRes.tramoRegla);
+  if (expRes.depRegla) activas.add(expRes.depRegla);
+  if (expRes.vulRegla) activas.add(expRes.vulRegla);
+  if (expRes.dictamenRegla) activas.add(expRes.dictamenRegla);
+  if (expRes.alertaRegla) activas.add(expRes.alertaRegla);
+  activas.add('R24');
+
+  const chkLuz = document.getElementById('chk-luz');
+  if (chkLuz && chkLuz.checked) activas.add('R12');
+  const chkAgua = document.getElementById('chk-agua');
+  if (chkAgua && chkAgua.checked) activas.add('R15');
+  const chkSaneamiento = document.getElementById('chk-saneamiento');
+  if (chkSaneamiento && chkSaneamiento.checked) activas.add('R16');
+  const chkHac = document.getElementById('chk-hacinamiento');
+  const chkPiso = document.getElementById('chk-piso');
+  if (chkHac && chkHac.checked) {
+    activas.add('R07');
+    if (chkPiso && chkPiso.checked) activas.add('R09');
+  } else {
+    activas.add('R08');
+  }
+  const menores = parseInt(document.getElementById('calc-inp-menores')?.value || 0);
+  if (menores > 0 && expRes.privScore >= 5) {
+    activas.add('R19');
+  }
+
+  document.querySelectorAll('.rule-chip').forEach(chip => {
+    const rId = chip.getAttribute('data-rule');
+    if (activas.has(rId)) {
+      chip.classList.add('active');
+    } else {
+      chip.classList.remove('active');
+    }
+  });
 }
 
 function actualizarTags(containerId, muObj) {
@@ -670,8 +730,11 @@ function cargarCaso(num) {
   const caso = CASOS[num];
   if (!caso) return;
 
-  // Actualizar estado activo en los botones de presets
+  // Actualizar estado activo en los botones de presets del hero y barra sticky
   document.querySelectorAll('.preset-card').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx + 1 === num);
+  });
+  document.querySelectorAll('.sticky-case-pill').forEach((btn, idx) => {
     btn.classList.toggle('active', idx + 1 === num);
   });
 
@@ -781,10 +844,20 @@ function navegarA(target) {
 function inicializarNavegacionScroll() {
   const navLinks = document.querySelectorAll('.navbar-menu .nav-link');
   const sections = document.querySelectorAll('header.hero-section, section.landing-section');
+  const stickyCasesBar = document.getElementById('sticky-cases-bar');
 
   window.addEventListener('scroll', () => {
     let currentId = 'hero';
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Controlar visibilidad de la barra flotante de los 4 casos
+    if (stickyCasesBar) {
+      if (scrollY > 380) {
+        stickyCasesBar.classList.add('is-visible');
+      } else {
+        stickyCasesBar.classList.remove('is-visible');
+      }
+    }
 
     sections.forEach((section) => {
       const top = section.offsetTop - 120;
